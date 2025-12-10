@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego de Cargas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="tema-default">
+
+    <div id="app">
+
+        <!-- ========== MENÚ PRINCIPAL ========== -->
+        <div id="menu-principal" class="pantalla activa">
+            <div class="card">
+                <h1>JUEGO DE CARTAS/RETOS</h1>
+                <h3>Una vez seleccionado juego ya no puedes detenerte, ¿Estás listo?</h3>
+                <h2></h2>
+
+                <!-- Los textos son libres, lo importante es el parámetro del onclick -->
+                <button onclick="seleccionarCategoria('laboral')">VIDA LABORAL</button>
+                <button onclick="seleccionarCategoria('vida')">VIDA COTIDIANA</button>
+                <button onclick="seleccionarCategoria('parejas')">VIDA EN PAREJA</button>
+            </div>
+        </div>
+
+        <!-- ========== MENÚ DE NIVELES ========== -->
+        <div id="menu-niveles" class="pantalla">
+            <div class="card">
+                <h2 id="titulo-categoria">Categoría</h2>
+
+                <!-- Estos botones llaman a seleccionarNivel, que sí existe en JS -->
+                <button onclick="seleccionarNivel(1)">Nivel 1</button>
+                <button onclick="seleccionarNivel(2)">Nivel 2</button>
+                <button onclick="seleccionarNivel(3)">Nivel 3</button>
+                <button onclick="nivelAleatorio()">Aleatorio</button>
+
+                <br><br>
+                <!-- Este botón solo se muestra en categoría 'parejas' (lo maneja JS) -->
+                <button id="btn-retos" class="oculto" onclick="seleccionarRetoParejas()">Reto en pareja</button>
+
+                <br><br>
+                <button class="volver" onclick="volverAlMenu()">Volver al menú principal</button>
+            </div>
+        </div>
+
+        <!-- ========== PANTALLA PREGUNTA / RETO ========== -->
+        <div id="pantalla-pregunta" class="pantalla">
+            <div class="card">
+                <!-- JS cambia este título entre PREGUNTA / RETO -->
+                <h2 id="titulo-pregunta">PREGUNTA</h2>
+
+                <p id="pregunta-texto"></p>
+                <p id="contador-tiempo"></p>
+
+                <!-- Solo se muestra en modo reto -->
+                <button id="btn-comenzar-reto" class="oculto" onclick="iniciarReto()">Comenzar</button>
+
+                <br><br>
+                <button onclick="mostrarOtraPregunta()">Otra pregunta</button>
+                <button class="volver" onclick="volverNiveles()">Volver a niveles</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- MUY IMPORTANTE: el script va al final, así ya existen todos los IDs -->
+    <script src="efectos.js"></script>
+    <script src="codigo.js"></script>
+
+</body>
+</html>
