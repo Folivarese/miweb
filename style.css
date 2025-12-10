@@ -165,3 +165,15 @@ body.alerta-reto #pantalla-pregunta .card {
     background-color: #111; /* Asegura el color base */
     animation: parpadeo-fondo-alerta 0.4s infinite alternate !important;
 }
+
+/* ... (rest of your style.css code) ... */
+
+/* ====== ESTILO PARA BOTONES DESHABILITADOS ====== */
+/* Esto hace que el botón se vea claramente inactivo */
+button:disabled {
+    cursor: default !important;
+    opacity: 0.4;
+    transform: none !important; /* Evita que se mueva con hover */
+    box-shadow: none !important; /* Evita que tenga sombra de activo */
+    background: #333 !important; /* Asegura un color base */
+}

@@ -13,6 +13,28 @@ let tiempoRestanteReto = 0;
 // Control de preguntas usadas por categoría+nivel
 let usadas = {};
 
+// ================= FUNCIONES DE CONTROL DE BOTONES =================
+
+/**
+ * Habilita o deshabilita los botones de navegación en la pantalla de pregunta/reto.
+ * @param {boolean} habilitar - true para habilitar, false para deshabilitar.
+ */
+function controlarBotonesPregunta(habilitar) {
+    const btnOtra = document.getElementById('btn-otra-pregunta');
+    const btnVolver = document.getElementById('btn-volver-niveles');
+    
+    if (btnOtra) {
+        btnOtra.disabled = !habilitar;
+        // La parte de style.opacity la manejaremos mejor con el CSS
+    }
+    
+    if (btnVolver) {
+        btnVolver.disabled = !habilitar;
+        // La parte de style.opacity la manejaremos mejor con el CSS
+    }
+}
+
+
 // ================= CAMBIO DE PANTALLAS =================
 
 /**
@@ -67,6 +89,9 @@ function seleccionarCategoria(cat) {
     modoReto = false;
     nivelActual = 0;
 
+    // Control de botones: HABILITADOS por defecto al cambiar de pantalla
+    controlarBotonesPregunta(true);
+
     // Actualiza el título del menú de niveles
     const titulo = document.getElementById("titulo-categoria");
     if (titulo) {
@@ -117,6 +142,9 @@ function nivelAleatorio() {
  */
 function mostrarOtraPregunta() {
     detenerReto();
+    
+    // Control de botones: HABILITADOS (Para preguntas normales)
+    controlarBotonesPregunta(true);
     
     if (typeof desactivarAlertaReto === 'function') {
         desactivarAlertaReto(); 
@@ -174,6 +202,9 @@ function mostrarOtraPregunta() {
 function seleccionarRetoParejas() {
     detenerReto();
     
+    // Control de botones: HABILITADOS antes de iniciar el reto
+    controlarBotonesPregunta(true);
+    
     if (typeof desactivarAlertaReto === 'function') {
         desactivarAlertaReto(); 
     }
@@ -217,6 +248,9 @@ function seleccionarRetoParejas() {
 function iniciarReto() {
     detenerReto();
     
+    // Control de botones: DESHABILITADOS al iniciar el conteo
+    controlarBotonesPregunta(false); 
+    
     if (typeof desactivarAlertaReto === 'function') {
         desactivarAlertaReto(); 
     }
@@ -232,21 +266,20 @@ function iniciarReto() {
             contadorEl.textContent = "Tiempo: 0 segundos - ¡Reto Finalizado!";
             detenerReto();
             
+            // Control de botones: HABILITADOS de nuevo al finalizar
+            controlarBotonesPregunta(true); 
+
             // Llama a la función de efectos.js para activar el parpadeo
             if (typeof activarAlertaReto === 'function') {
                 activarAlertaReto(); 
             }
 
-            // ===============================================
-            // CÓDIGO NUEVO: REPRODUCIR AUDIO
-            // ===============================================
+            // REPRODUCIR AUDIO
             const audio = document.getElementById('audio-alerta');
             if (audio) {
-                // Reinicia el audio a 0 antes de reproducir (necesario si suena rápido)
                 audio.currentTime = 0; 
                 audio.play();
             }
-            // ===============================================
 
         } else {
             contadorEl.textContent = "Tiempo: " + tiempoRestanteReto + " segundos";
@@ -272,6 +305,9 @@ function detenerReto() {
 function volverAlMenu() {
     detenerReto();
     
+    // Control de botones: HABILITADOS
+    controlarBotonesPregunta(true);
+    
     if (typeof desactivarAlertaReto === 'function') {
         desactivarAlertaReto(); 
     }
@@ -288,6 +324,9 @@ function volverAlMenu() {
 function volverNiveles() {
     detenerReto();
     
+    // Control de botones: HABILITADOS
+    controlarBotonesPregunta(true);
+    
     if (typeof desactivarAlertaReto === 'function') {
         desactivarAlertaReto(); 
     }
@@ -299,3 +338,9 @@ function volverNiveles() {
 
 // Establece el tema por defecto al cargar la página
 aplicarTema("default");
+
+// Se asegura de que los botones estén habilitados al iniciar por si recargamos la pantalla de reto
+// Esto previene un estado bloqueado si el navegador guarda el estado
+document.addEventListener('DOMContentLoaded', () => {
+    controlarBotonesPregunta(true);
+});
