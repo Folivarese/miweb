@@ -177,3 +177,13 @@ button:disabled {
     box-shadow: none !important; /* Evita que tenga sombra de activo */
     background: #333 !important; /* Asegura un color base */
 }
+
+/* ====== ESTILO PARA BOTONES DESHABILITADOS (UX Mejorada) ====== */
+button:disabled {
+    cursor: default !important; /* El puntero del ratón no cambia a mano */
+    opacity: 0.4;
+    transform: none !important; /* Evita cualquier efecto de hover */
+    box-shadow: none !important; /* Evita la sombra de activo */
+    background: #333 !important; /* Asegura un color base inactivo */
+}
+/* ====== FIN DE style.css ====== */

@@ -19,23 +19,26 @@
                 <button onclick="seleccionarCategoria('laboral')">VIDA LABORAL</button>
                 <button onclick="seleccionarCategoria('vida')">VIDA COTIDIANA</button>
                 <button onclick="seleccionarCategoria('parejas')">VIDA EN PAREJA</button>
+                
             </div>
         </div>
 
-        <div id="menu-niveles" class="pantalla">
+       <div id="menu-niveles" class="pantalla">
             <div class="card">
                 <h2 id="titulo-categoria">Categoría</h2>
 
                 <button onclick="seleccionarNivel(1)">Nivel 1</button>
                 <button onclick="seleccionarNivel(2)">Nivel 2</button>
                 <button onclick="seleccionarNivel(3)">Nivel 3</button>
-                <button onclick="nivelAleatorio()">Aleatorio</button>
+                <button onclick="nivelAleatorio()">Aleatorio</button>                
+                <button onclick="seleccionarNivel(4)">¿Qué harías?</button>
+                
 
                 <br><br>
                 <button id="btn-retos" class="oculto" onclick="seleccionarRetoParejas()">Reto en pareja</button>
 
                 <br><br>
-                <button class="volver" onclick="volverAlMenu()">Volver al menú principal</button>
+                <button class="volver" onclick="volverAlMenu()">Volver al menú</button>
             </div>
         </div>
 
@@ -61,6 +64,7 @@
     <script src="efecto.js"></script>
     <script src="datos.js"></script>
     <script src="codigo.js"></script>
+
 
 </body>
 </html>

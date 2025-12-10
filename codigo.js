@@ -344,3 +344,4 @@ aplicarTema("default");
 document.addEventListener('DOMContentLoaded', () => {
     controlarBotonesPregunta(true);
 });
+    

@@ -85,7 +85,16 @@ const preguntas = {
             "¿Qué mentira o fachada laboral sostenés activamente para mantener tu posición o el respeto de tus colegas?",
             "¿Qué legado (o impacto negativo) de tus padres o figuras de autoridad laborales aún opera en tu forma de trabajar?",
             "¿Qué parte de tu vida laboral te gustaría transformar?",
-            "Si tu trabajo actual desapareciera mañana, ¿qué te costaría más perder: el título, el dinero, o la identidad que te da?"
+            "Si tu trabajo actual desapareciera mañana, ¿crees que te costaría conseguir otro similar o te sentirías perdido/a?"
+        ],
+        // ¿QUÉ HARÍAS?
+        4: [
+            "¿Qué harías si tu jefe te pide hacer algo ilegal que beneficia enormemente a la empresa, pero te hace participar del dinero sucio?",
+            "¿Qué harías si descubres que un colega miente constantemente sobre sus logros para conseguir ascensos, pero es tu amigo cercano?",
+            "¿Qué harías si te ofrecen un puesto de ensueño en una empresa con valores opuestos a los tuyos y que afecta negativamente a la sociedad?",
+            "¿Qué harías si, por error, te pagan el doble de tu salario por un mes, y nadie en recursos humanos se da cuenta?",
+            "¿Qué harías si un grave error tuyo pasa desapercibido, pero sabes que a largo plazo podría costar mucho dinero a la empresa?",
+            "¿Qué harías si te hiciste encima en una reunión importante?"
         ]
     },
 
@@ -144,7 +153,8 @@ const preguntas = {
             "¿Qué parte de tu vida cotidiana te gustaría compartir más con tus amigos?",
             "¿Qué miedo tenés respecto a la soledad en tu vida diaria?",
             "¿Qué aspecto de tu vida cotidiana te gustaría que tu círculo cercano entienda mejor?",
-            "¿Qué hábito tuyo afecta negativamente tus relaciones y te gustaría cambiar?"
+            "¿Qué hábito tuyo afecta negativamente tus relaciones y te gustaría cambiar?",
+            "¿Qué creencia limitante tienes sobre ti mismo/a que afecta tus relaciones?",
         ],
         3: [
             "¿Qué parte tuya sentís que nadie, ni tus amigos, conoce realmente?",
@@ -171,7 +181,16 @@ const preguntas = {
             "¿Qué parte de tu identidad sentís que sacrificaste para encajar en ciertos grupos?",
             "¿Qué miedo tenés respecto a mostrar tu vulnerabilidad en tus relaciones cercanas?",
             "¿Qué aspecto de tu vida cotidiana te gustaría transformar radicalmente si no tuvieras miedo al qué dirán?",
-            "¿Qué patrón de comportamiento repetís en tus amistades que sabés que te hace daño pero no podés evitar?"
+            "¿Qué patrón de comportamiento repetís en tus amistades que sabés que te hace daño pero no podés evitar?",
+            "¿Qué parte de tu historia personal te cuesta compartir incluso con tus amigos más cercanos?"
+        ],
+         //¿QUÉ HARÍAS?
+        4: [
+            "¿Qué harías si, al despertar, descubres que tienes la habilidad de hablar con los pájaros, pero solo te cuentan chismes de otros vecinos?",
+            "¿Qué harías si tu refrigerador se convierte en una máquina del tiempo y solo puede viajar 10 minutos al pasado?",
+            "¿Qué harías si tu mascota te dice que te odia profundamente, pero que tiene que vivir contigo solo por comida?",
+            "¿Qué harías si cada vez que estornudás, cambiás de ropa automáticamente a un atuendo completamente aleatorio, es decir si estas en una fiesta debes explicar que pasó?",
+            "¿Qué harías si solo puedes comunicarte con las personas cantando reggaetón hasta que te duermas?"
         ]
     },
 
@@ -256,6 +275,21 @@ const preguntas = {
             "¿Qué tipo de escenario mental te excita, aunque racionalmente sabés que nunca lo llevarías a cabo?",
             "¿Qué te asusta más: que tu pareja no se sienta satisfecha contigo o que descubra un deseo tuyo 'demasiado' intenso?",
             "Si tuvieras que definir tu 'estilo de apego' en lo íntimo (por ejemplo, ansioso, evitativo, seguro), ¿cuál sería y cómo afecta la conexión?"
+        ],
+        //¿QUÉ HARÍAS?
+
+        4: [
+            "¿Qué harías si, justo en el momento más apasionado, descubres que tu pareja tiene puesto un par de medias con la cara de tu madre?",
+            "¿Qué harías si, en medio de la intimidad, tu pareja se detiene para pedirte que le recuerdes dónde guardó las llaves del auto?",
+            "¿Qué harías si tu pareja te propone hacer un trío, pero solo con personajes históricos famosos?",
+            "¿Qué harías si tu pareja te confiesa que la única forma de alcanzar la máxima excitación es recitando la tabla del 7 al revés?",
+            "¿Qué harías si descubres que tu pareja solo puede gemir con la voz de un personaje de dibujos animados muy conocido?",
+            "¿Qué harías si, durante un momento íntimo, tu pareja se orina encima?",
+            "¿Qué harías si tu pareja insiste en que el momento íntimo solo puede continuar si ambos llevan puestos disfraces de superhéroes?",
+            "¿Qué harías si, en medio de la pasión, tu pareja comienza a narrar la escena como si fuera un partido de fútbol?",
+            "¿Qué harías si tu pareja te pide que le hables solo en citas de películas románticas durante todo el encuentro íntimo?",
+            "¿Qué harías si, justo cuando están a punto de besarse, tu pareja saca un libro de poesía y comienza a leerlo en voz alta?",
+            "Describe exactamente como le decis a tu pareja que necesitas ir al baño justo en el momento más íntimo."
         ]
     }
 };
@@ -288,5 +322,6 @@ const retosParejas = [
     "Tu pareja elige una parte de tu cuerpo que sabe que te excita. Debe acercarse, hacer un gesto muy sensual (sin tocar) y alejarse, repitiendo esto varias veces durante el tiempo del reto.",
     "Aplicá un cubito de hielo o algo tibio sobre la piel de tu pareja en una zona erógena, alternando las temperaturas para crear un contraste sensorial intenso durante",
     "Contá un recuerdo íntimo compartido o una fantasía personal con el mayor detalle posible, sin tocar a tu pareja, usando solo el tono de voz y la expresión facial para excitarlo/a durante",
-    "Vendá los ojos de tu pareja. Usá una pluma, seda o tus uñas (con cuidado) para rozar suavemente zonas NO erógenas (cuello, muñecas, espalda) antes de llegar al punto que realmente deseas tocar. Mantené la intriga durante"
+    "Vendá los ojos de tu pareja. Usá tus dedos (con cuidado) para rozar suavemente zonas (cuello, muñecas, espalda) antes de llegar al punto que realmente deseas tocar. Mantené la intriga durante",
+
 ];

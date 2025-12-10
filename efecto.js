@@ -9,3 +9,7 @@ function desactivarAlertaReto() {
     // Solo quita la clase del BODY.
     document.body.classList.remove("alerta-reto");
 }
+// Alterna el parpadeo rojo de la tarjeta
+function alternarAlertaReto() {
+    document.body.classList.toggle("alerta-reto");
+}
