@@ -23,13 +23,14 @@ body {
     padding: 16px;
 }
 
-/* Tarjeta central */
+/* Tarjeta central - ¡IMPORTANTE! Se eliminó el 'transition' para evitar el bloqueo de la animación */
 .card {
-    background: rgba(20, 20, 20, 0.94);
+    background: #111; 
     border-radius: 16px;
     padding: 24px 20px 28px 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
     border: 1px solid rgba(255, 255, 255, 0.06);
+    /* TRANSITION ELIMINADA para que la animación @keyframes funcione */
 }
 
 /* Títulos */
@@ -150,13 +151,17 @@ body.tema-parejas {
 
 /* ====== EFECTO DE PARPADEO ROJO AL TERMINAR EL TIEMPO ====== */
 
-@keyframes parpadeo-rojo {
-    0%   { background-color: #111; }
-    50%  { background-color: #7f1d1d; }
+@keyframes parpadeo-fondo-alerta {
+    /* Base: color de fondo de la tarjeta */
+    0%   { background-color: #111; } 
+    /* Pico: Rojo fuerte para máxima visibilidad */
+    50%  { background-color: #ff0000; } 
+    /* Fin: vuelve al color base */
     100% { background-color: #111; }
 }
 
-/* Cuando el body tiene alerta-reto, las cards parpadean */
-body.alerta-reto .card {
-    animation: parpadeo-rojo 0.6s infinite;
+/* Aplicación de la animación con la máxima especificidad para sobrescribir todo */
+body.alerta-reto #pantalla-pregunta .card {
+    background-color: #111; /* Asegura el color base */
+    animation: parpadeo-fondo-alerta 0.4s infinite alternate !important;
 }
