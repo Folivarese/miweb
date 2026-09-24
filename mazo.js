@@ -3,7 +3,7 @@
 // - Vida laboral / cotidiana / en pareja: cartas armadas a partir de `preguntas` (datos.js).
 // Usa mostrarPantalla, aplicarTema y volverAlMenu de codigo.js, y activarAlertaReto/desactivarAlertaReto de efecto.js.
 
-const TIPOS_CARTA = { pregunta: "💬 Pregunta", reto: "🔥 Reto", fantasia: "🎭 Fantasía", situacion: "🤔 Situación", adivina: "🎯 Adiviná" };
+const TIPOS_CARTA = { pregunta: "💬 Pregunta", reto: "🔥 Reto", fantasia: "🎭 Fantasía", situacion: "🤔 Situación", adivina: "🎯 Adiviná", accion: "🤝 Acción" };
 
 // Configuración de cada mazo: tema de fondo, ícono del dorso y de dónde salen las cartas
 const MAZOS = {
@@ -11,14 +11,15 @@ const MAZOS = {
     vida:    { titulo: "VIDA COTIDIANA", tema: "vida",    icono: "☕", colores: ["#86efac", "#4ade80", "#22c55e", "#facc15"] },
     parejas: {
         titulo: "VIDA EN PAREJA", tema: "parejas", icono: "💞",
-        colores: ["#fdba74", "#fb923c", "#f97316", "#f43f5e", "#fda4af", "#e879f9"],
+        colores: ["#fdba74", "#fb923c", "#f97316", "#e879f9", "#f43f5e", "#fb7185", "#fda4af"],
         niveles: [
             { id: 1, nombre: "¿Cuánto me conocés?", tipo: "adivina",   descripcion: "Adiviná la respuesta de tu pareja: si acertás, sumás un punto; si no, te la cuenta." },
-            { id: 2, nombre: "Mi mundo",            tipo: "pregunta",  descripcion: "Su presente: rutina, gustos, preocupaciones y metas." },
+            { id: 2, nombre: "Mi mundo",            tipo: "pregunta",  descripcion: "Su presente: rutina, estrés, espacio propio y metas." },
             { id: 3, nombre: "Mi historia",         tipo: "pregunta",  descripcion: "Infancia, familia y los momentos que la/lo marcaron." },
-            { id: 4, nombre: "Corazón abierto",     tipo: "pregunta",  descripcion: "Necesidades, miedos y cómo se siente amado/a." },
-            { id: 5, nombre: "Nuestro futuro",      tipo: "pregunta",  descripcion: "Planes, plata, familia y los sueños de los dos." },
-            { id: 6, nombre: "¿Qué harías?",        tipo: "situacion", descripcion: "Dilemas de pareja para ver cómo piensa el otro." }
+            { id: 4, nombre: "¿Qué harías?",        tipo: "situacion", descripcion: "Dilemas para poner a prueba cómo funcionan como equipo." },
+            { id: 5, nombre: "Corazón abierto",     tipo: "pregunta",  descripcion: "Necesidades, miedos, reparación y cómo se siente amado/a." },
+            { id: 6, nombre: "Intimidad y deseo",   tipo: "pregunta",  descripcion: "Deseo, seducción y cómo hablan de la intimidad, sin nada explícito." },
+            { id: 7, nombre: "Nuestro futuro",      tipo: "pregunta",  descripcion: "Planes, plata, familia, rituales y los sueños de los dos." }
         ]
     },
     deseo:   { titulo: "MAZO DEL DESEO", tema: "deseo",   icono: "♥",  archivo: "cards.json", aviso18: true }
@@ -74,17 +75,21 @@ async function cargarMazo(clave) {
 
 /**
  * Convierte preguntas[categoria] de datos.js al formato de cartas del mazo.
+ * Cada carta es un texto (toma el tipo del nivel) o un objeto { tipo, texto, tiempo }.
  */
 function armarMazoDesdePreguntas(categoria, definicionNiveles, colores) {
     const niveles = definicionNiveles.map((n, i) => ({ ...n, color: colores[i] }));
     const cartas = niveles.flatMap(n =>
-        (preguntas[categoria][n.id] || []).map((texto, i) => ({
-            id: categoria + "-" + n.id + "-" + (i + 1),
-            nivel: n.id,
-            tipo: n.tipo,
-            texto: texto,
-            tiempo: null
-        }))
+        (preguntas[categoria][n.id] || []).map((item, i) => {
+            const carta = typeof item === "string" ? { texto: item } : item;
+            return {
+                id: categoria + "-" + n.id + "-" + (i + 1),
+                nivel: n.id,
+                tipo: carta.tipo || n.tipo,
+                texto: carta.texto,
+                tiempo: carta.tiempo || null
+            };
+        })
     );
     return { niveles, cartas };
 }
@@ -271,6 +276,7 @@ function prepararSiguienteCarta() {
 
     const nivel = buscarNivel(mazoCartaActual.nivel);
     carta.style.setProperty("--nivel-color", nivel.color);
+    carta.dataset.tipo = mazoCartaActual.tipo; // las cartas de acción tienen otro diseño (style.css)
     document.getElementById("carta-nivel").textContent = nombreConAjies(nivel);
     document.getElementById("carta-tipo").textContent = TIPOS_CARTA[mazoCartaActual.tipo] || mazoCartaActual.tipo;
     document.getElementById("carta-texto").textContent = mazoCartaActual.texto;
@@ -327,6 +333,7 @@ function mostrarFinDelMazo() {
     const carta = document.getElementById("carta");
 
     carta.style.setProperty("--nivel-color", "#f5f5f5");
+    carta.dataset.tipo = "";
     document.getElementById("carta-nivel").textContent = "Fin del mazo";
     document.getElementById("carta-tipo").textContent = "";
     document.getElementById("carta-texto").textContent = "¡Jugaron todas las cartas! Pueden volver a mezclar o elegir otro nivel.";

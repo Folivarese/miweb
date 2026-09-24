@@ -196,7 +196,9 @@ const preguntas = {
 
     // Vida en pareja: para conocer a fondo a tu pareja.
     // Basado en los "mapas del amor" de Gottman y en la apertura gradual de las 36 preguntas de Aron.
+    // Revisado con un sexólogo y terapeuta de pareja: estrés, reparación, espacio propio, rituales, intimidad no explícita y cartas de acción.
     // Los nombres de los niveles están en mazo.js (MAZOS.parejas).
+    // Una carta puede ser un texto (toma el tipo del nivel) o un objeto { tipo, texto, tiempo } para las cartas de acción.
     parejas: {
         // ¿CUÁNTO ME CONOCÉS? (quien saca la carta adivina la respuesta de su pareja)
         1: [
@@ -213,7 +215,9 @@ const preguntas = {
             "¿Cuál es, según tu pareja, el mejor regalo que le hiciste?",
             "¿Qué hace tu pareja cuando está enojado/a y no quiere hablar?",
             "¿Qué persona de su familia es la más importante para tu pareja?",
-            "¿Cuál es el recuerdo favorito de tu pareja de ustedes dos?"
+            "¿Cuál es el recuerdo favorito de tu pareja de ustedes dos?",
+            "Cuando tu pareja está desbordada, ¿qué necesita: que le des espacio o que te quedes cerca?",
+            "¿Cuál es el momento del día juntos que tu pareja más disfruta?"
         ],
         // MI MUNDO (su presente)
         2: [
@@ -230,7 +234,11 @@ const preguntas = {
             "¿Qué te gustaría que te pregunte más seguido cuando llegás a casa?",
             "¿En qué parte de tu vida sentís que necesitás más apoyo ahora?",
             "¿Qué serie, libro o tema te tiene atrapado/a últimamente?",
-            "¿Qué cosa de tu trabajo o de tu estudio te gustaría que yo entienda mejor?"
+            "¿Qué cosa de tu trabajo o de tu estudio te gustaría que yo entienda mejor?",
+            "Cuando estás desbordado/a, ¿qué te ayuda a bajar: hablar, moverte, estar solo/a o que te abrace?",
+            "¿En qué área de tu vida sentís que necesitás más tiempo o espacio para vos?",
+            "¿Qué ritual nuestro de todos los días no querés perder nunca?",
+            { tipo: "accion", tiempo: 60, texto: "Contale a tu pareja algo que te pasó hoy. Durante 60 segundos solo escucha, sin opinar ni dar consejos. Al final te abraza." }
         ],
         // MI HISTORIA (sus raíces)
         3: [
@@ -247,10 +255,28 @@ const preguntas = {
             "¿Qué tradición de tu familia te gustaría que tengamos nosotros?",
             "¿Cómo era tu vida justo antes de conocerme?",
             "¿Qué pensaste la primera vez que me viste? ¿Y cuándo supiste que te gustaba de verdad?",
-            "¿Qué parte de tu pasado te cuesta contar?"
+            "¿Qué parte de tu pasado te cuesta contar?",
+            "¿Cómo se pedían perdón en tu casa? ¿Cómo te gusta que te lo pidan hoy?",
+            { tipo: "accion", tiempo: null, texto: "Buscá una foto tuya de chico/a y mostrásela a tu pareja. Contale qué estaba pasando en tu vida en ese momento." }
         ],
-        // CORAZÓN ABIERTO (necesidades, miedos y cómo se siente amado/a)
+        // PONER A PRUEBA (¿qué harías?): dilemas para ver cómo funcionamos como equipo
         4: [
+            "¿Qué harías si tuvieras una deuda que te da vergüenza contarme? ¿Qué necesitarías de mí para animarte a decírmelo?",
+            "¿Qué harías si tu mejor amigo/a y tu pareja no se soportan?",
+            "¿Qué harías si tu pareja quiere mudarse lejos por su carrera y vos estás bien donde estás?",
+            "¿Qué harías si tu familia critica todo el tiempo a tu pareja? ¿Cómo haríamos equipo frente a eso?",
+            "¿Qué harías si tu ex te escribe para volver a hablar? ¿Qué límites con el pasado nos hacen sentir seguros a los dos?",
+            "¿Qué harías si tu pareja quiere tener hijos ya y vos todavía no?",
+            "¿Qué harías si ves sin querer un mensaje en el celular de tu pareja que te genera dudas? ¿Cómo te gustaría que lo hablemos?",
+            "¿Qué harían si ganan la lotería mañana? ¿Qué es lo primero que hacen?",
+            "¿Qué harías si tu pareja pierde el trabajo y cae en un bajón largo?",
+            "¿Qué harías si tu pareja te pide un tiempo?",
+            "¿Qué harías si te enterás de que tu pareja le contó a alguien algo muy íntimo tuyo?",
+            "¿Qué harías si en una discusión los dos tienen razón y ninguno quiere ceder?",
+            "¿Qué harías si discutimos fuerte justo antes de juntarnos con amigos? ¿Cómo lo pausamos y lo retomamos después?"
+        ],
+        // CORAZÓN ABIERTO (necesidades, miedos, reparación y cómo se siente amado/a)
+        5: [
             "¿Cuándo te sentís más amado/a por mí? Dame un ejemplo concreto.",
             "Cuando estás triste, ¿qué necesitás de mí: que te hable, que te abrace o que te deje tranquilo/a?",
             "¿Hay algo que hago que te lastima y nunca me dijiste?",
@@ -264,10 +290,32 @@ const preguntas = {
             "¿Qué te gustaría que te agradezca más seguido?",
             "¿Hay algo de vos que todavía no te animaste a mostrarme?",
             "¿Qué te da celos y cómo te gustaría que lo manejemos?",
-            "¿Qué momento reciente te hizo pensar: «elegí bien»?"
+            "¿Qué momento reciente te hizo pensar: «elegí bien»?",
+            "Después de una pelea, ¿qué necesitás escuchar de mí para darla por cerrada?",
+            "¿Cómo te das cuenta de que estás llegando a tu límite? ¿Qué señal tuya te gustaría que aprenda a leer?",
+            "¿Hay algo que te lastimó y sentís que todavía no reparamos?",
+            { tipo: "accion", tiempo: 60, texto: "Mírense a los ojos en silencio durante 60 segundos, sin hablar. Después cuenten qué sintieron." },
+            { tipo: "accion", tiempo: null, texto: "Decile a tu pareja 3 cosas concretas que hizo esta semana y que te hicieron la vida más linda." },
+            { tipo: "accion", tiempo: 60, texto: "Abrácense durante 60 segundos sin hablar, hasta que sientan que respiran al mismo ritmo." }
         ],
-        // NUESTRO FUTURO
-        5: [
+        // INTIMIDAD Y DESEO (comunicación sobre la intimidad, sin contenido explícito)
+        6: [
+            "¿Qué gesto cotidiano mío te hace sentir deseado/a?",
+            "¿Cómo te gusta que te seduzcan fuera de la habitación?",
+            "¿Qué tan fácil o difícil te resulta pedirme lo que necesitás en la intimidad?",
+            "¿Qué te hace sentir cómodo/a y seguro/a para disfrutar de la intimidad conmigo?",
+            "¿Qué cosas bajan tu deseo: el cansancio, el estrés, la rutina u otra cosa?",
+            "¿Sentís que la frecuencia de nuestros encuentros está bien para vos? ¿Qué cambiarías?",
+            "¿Cómo te gustaría que nos digamos que no a algo sin que el otro se sienta rechazado/a?",
+            "¿Cuál es tu caricia favorita que no tiene nada de sexual?",
+            "¿Qué aprendiste de chico/a sobre el cuerpo, el placer o el amor que hoy te gustaría desaprender?",
+            "¿Cuál fue el momento en que te sentiste más cerca mío sin que fuera sexual?",
+            "¿Qué recuerdo nuestro de intimidad te hace sonreír?",
+            { tipo: "accion", tiempo: null, texto: "Mirando a tu pareja a los ojos, decile qué es lo que más te atrae de ella/él. Tiene que ser algo que nunca le dijiste." },
+            { tipo: "accion", tiempo: 60, texto: "Tómense de las manos y, durante 60 segundos, recorran con los dedos las manos del otro, sin hablar." }
+        ],
+        // NUESTRO FUTURO (acuerdos, espacio propio y rituales)
+        7: [
             "¿Cómo te imaginás un día cualquiera nuestro dentro de 10 años?",
             "¿Querés tener hijos? ¿Cuántos, cuándo y cómo te imaginás criándolos?",
             "¿Dónde te gustaría que vivamos: en la ciudad, en el campo, en otro país?",
@@ -281,22 +329,11 @@ const preguntas = {
             "Si mañana te ofrecen el trabajo soñado en otro país, ¿cómo lo decidiríamos?",
             "¿Qué tradición inventamos para festejar nuestro aniversario?",
             "¿Qué te gustaría que digan de nosotros como pareja dentro de muchos años?",
-            "¿Qué hábito podríamos empezar juntos para cuidar la relación?"
-        ],
-        // ¿QUÉ HARÍAS? (dilemas de pareja)
-        6: [
-            "¿Qué harías si descubrís que tu pareja te ocultó una deuda grande durante meses?",
-            "¿Qué harías si tu mejor amigo/a y tu pareja no se soportan?",
-            "¿Qué harías si tu pareja quiere mudarse lejos por su carrera y vos estás bien donde estás?",
-            "¿Qué harías si tu familia critica todo el tiempo a tu pareja?",
-            "¿Qué harías si tu ex te escribe para pedirte perdón y volver a hablar?",
-            "¿Qué harías si tu pareja quiere tener hijos ya y vos todavía no?",
-            "¿Qué harías si ves sin querer un mensaje en el celular de tu pareja que te genera dudas?",
-            "¿Qué harían si ganan la lotería mañana? ¿Qué es lo primero que hacen?",
-            "¿Qué harías si tu pareja pierde el trabajo y cae en un bajón largo?",
-            "¿Qué harías si tu pareja te pide un tiempo?",
-            "¿Qué harías si te enterás de que tu pareja le contó a alguien algo muy íntimo tuyo?",
-            "¿Qué harías si en una discusión los dos tienen razón y ninguno quiere ceder?"
+            "¿Qué hábito podríamos empezar juntos para cuidar la relación?",
+            "¿Cómo cuidamos el tiempo de cada uno sin que el otro lo sienta como distancia?",
+            "¿Cómo te gustaría que nos saludemos y nos despidamos cada día?",
+            "¿Qué acuerdo nos ayudaría a pelear mejor: pausar, no gritar, no irnos a dormir enojados?",
+            { tipo: "accion", tiempo: null, texto: "Escriban cada uno en el celular un deseo para la pareja este año. Léanlos en voz alta al mismo tiempo." }
         ]
     }
 };
