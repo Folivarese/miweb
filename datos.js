@@ -209,7 +209,7 @@ const preguntas = {
             "¿Cuál es el mayor miedo de tu pareja?",
             "¿Qué música escucha tu pareja cuando está triste?",
             "¿Qué quería ser tu pareja de grande cuando era chica o chico?",
-            "¿Qué es lo que más estresa a tu pareja en este momento de su vida?",
+            "¿Cuál es la manía de orden o de limpieza de tu pareja que más te llama la atención?",
             "¿Cómo prefiere recibir cariño tu pareja: palabras, regalos, tiempo juntos, ayuda o contacto físico?",
             "¿Qué lugar del mundo se muere por conocer tu pareja?",
             "¿Cuál es, según tu pareja, el mejor regalo que le hiciste?",
@@ -218,14 +218,14 @@ const preguntas = {
             "¿Cuál es el recuerdo favorito de tu pareja de ustedes dos?",
             "Cuando tu pareja está desbordada, ¿qué necesita: que le des espacio o que te quedes cerca?",
             "¿Cuál es el momento del día juntos que tu pareja más disfruta?",
-            "¿Cuál es la manía tuya más absurda que tu pareja ya aprendió a tolerar?"
+            "¿Cuál es el antojo favorito de tu pareja para ver una película: algo dulce o algo salado?"
         ],
         // MI MUNDO (su presente)
         2: [
             "¿Qué es lo que más te ocupa la cabeza esta semana?",
             "¿Qué momento de tu día esperás con más ganas?",
-            "Además de mí, ¿con quién es con quien más te gusta hablar y por qué?",
-            "¿Hay algo que te esté preocupando y todavía no me contaste?",
+            "Fuera de la pareja, ¿con quién o en qué lugar sentís que podés descargarte y hablar con total libertad?",
+            "¿Hay alguna preocupación que no encontraste el momento para compartirme?",
             "¿Qué hiciste últimamente que te dio orgullo de vos?",
             "¿Qué cosa chiquita te arruina el día aunque parezca una pavada?",
             "¿Qué actividad o hobby te gustaría retomar o empezar?",
@@ -261,7 +261,7 @@ const preguntas = {
             "¿Qué tradición de tu familia te gustaría que tengamos nosotros?",
             "¿Cómo era tu vida justo antes de conocerme?",
             "¿Qué pensaste la primera vez que me viste? ¿Y cuándo supiste que te gustaba de verdad?",
-            "¿Hay algo de tu pasado que te gustaría contarme de a poco, cuando tengas ganas?",
+            "¿Hay alguna etapa o vivencia de tu pasado que, si me la contás, me ayudaría a entenderte mejor hoy?",
             "¿Cómo se pedían perdón en tu casa? ¿Cómo te gusta que te lo pidan hoy?",
             { tipo: "accion", tiempo: null, texto: "Buscá una foto de tu infancia y mostrásela a tu pareja. Contale qué estaba pasando en tu vida en ese momento." }
         ],
@@ -273,10 +273,10 @@ const preguntas = {
             "¿Qué harías si tu familia critica todo el tiempo a tu pareja? ¿Cómo haríamos equipo frente a eso?",
             "¿Qué harías si tu ex te escribe para volver a hablar? ¿Qué límites con el pasado nos hacen sentir seguros a los dos?",
             "¿Qué harías si tu pareja quiere tener hijos ya y vos todavía no?",
-            "¿Qué harías si ves sin querer un mensaje en el celular de tu pareja que te genera dudas? ¿Cómo te gustaría que lo hablemos?",
+            "¿Qué harías si algo en el comportamiento de tu pareja te genera dudas? ¿Cómo te gustaría que empecemos esa charla sin ponernos a la defensiva?",
             "¿Qué harían si ganan la lotería mañana? ¿Qué es lo primero que hacen?",
             "¿Qué harías si tu pareja pierde el trabajo y cae en un bajón largo?",
-            "¿Qué harías si tu pareja te pide un tiempo?",
+            "¿Qué harías si sentís que estamos muy desconectados y la rutina nos está ganando? ¿Qué sería lo primero que harías?",
             "¿Qué harías si te enterás de que tu pareja le contó a alguien algo muy íntimo tuyo?",
             "¿Qué harías si en una discusión los dos tienen razón y ninguno quiere ceder?",
             "¿Qué harías si discutimos fuerte justo antes de juntarnos con amigos? ¿Cómo lo pausamos y lo retomamos después?"
@@ -285,9 +285,9 @@ const preguntas = {
         5: [
             "¿Cuándo sentís más mi amor? Dame un ejemplo concreto.",
             "Cuando estás triste, ¿qué necesitás de mí: que te hable, que te abrace o que te dé espacio?",
-            "¿Hay algo que hago que te lastima y nunca me dijiste?",
+            "¿Hay alguna costumbre o actitud mía que a veces te lastima o te incomoda y de la que no hablamos mucho?",
             "¿Qué es lo que más miedo te da perder de nuestra relación?",
-            "¿En qué momento sentiste que yo no te entendía?",
+            "¿En qué situaciones sentís que me cuesta más ponerme en tu lugar o entender tu punto de vista?",
             "¿Qué te cuesta pedirme?",
             "¿Qué inseguridad tuya te gustaría que conozca para cuidarla mejor?",
             "Cuando peleamos, ¿qué es lo que más te duele que haga o diga?",
@@ -299,7 +299,7 @@ const preguntas = {
             "¿Qué momento reciente te hizo pensar: «elegí bien»?",
             "Después de una pelea, ¿qué necesitás escuchar de mí para darla por cerrada?",
             "¿Cómo te das cuenta de que estás llegando a tu límite? ¿Qué señal tuya te gustaría que aprenda a leer?",
-            "¿Hay algo que te lastimó y sentís que todavía no reparamos?",
+            "¿Qué gesto o charla nos ayudaría a cerrar del todo alguna vieja discusión que a veces vuelve?",
             { tipo: "chequeo", tiempo: null, texto: "Del 1 al 10, ¿qué tan en equipo te sentís conmigo hoy? ¿Qué necesitarías para sumar un punto?" },
             { tipo: "comodin", tiempo: null, texto: "Pregunta libre: hacele a tu pareja la pregunta que quieras. Tiene que responder con total honestidad." },
             { tipo: "accion", tiempo: 60, texto: "Mírense a los ojos en silencio durante 60 segundos, sin hablar. Después cuenten qué sintieron." },
@@ -326,7 +326,7 @@ const preguntas = {
         // NUESTRO FUTURO (acuerdos, espacio propio y rituales)
         7: [
             "¿Cómo te imaginás un día cualquiera nuestro dentro de 10 años?",
-            "¿Querés tener hijos? ¿Cuántos, cuándo y cómo te imaginás criándolos?",
+            "Si planeamos tener hijos (o si ya los tenemos), ¿qué valor principal te gustaría que les transmitamos?",
             "¿Dónde te gustaría que vivamos: en la ciudad, en el campo, en otro país?",
             "¿Cómo te gustaría que manejemos la plata: todo junto, todo separado o una mezcla?",
             "¿Qué sueño tuyo necesita de mi apoyo para cumplirse?",
