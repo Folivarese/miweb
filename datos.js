@@ -204,20 +204,21 @@ const preguntas = {
         1: [
             "¿Cuál es la comida favorita de tu pareja? ¿Y cuál no comería nunca?",
             "¿Qué es lo que más rápido saca de quicio a tu pareja?",
-            "¿Cómo se llama el/la mejor amigo/a de la infancia de tu pareja?",
+            "¿Cómo se llama la persona que fue mejor amiga de tu pareja en la infancia?",
             "¿Qué haría tu pareja con un día libre, sin obligaciones y sin vos?",
             "¿Cuál es el mayor miedo de tu pareja?",
             "¿Qué música escucha tu pareja cuando está triste?",
-            "¿Qué quería ser tu pareja de grande cuando era chico/a?",
+            "¿Qué quería ser tu pareja de grande cuando era chica o chico?",
             "¿Qué es lo que más estresa a tu pareja en este momento de su vida?",
             "¿Cómo prefiere recibir cariño tu pareja: palabras, regalos, tiempo juntos, ayuda o contacto físico?",
             "¿Qué lugar del mundo se muere por conocer tu pareja?",
             "¿Cuál es, según tu pareja, el mejor regalo que le hiciste?",
-            "¿Qué hace tu pareja cuando está enojado/a y no quiere hablar?",
+            "¿Qué hace tu pareja cuando tiene bronca y no quiere hablar?",
             "¿Qué persona de su familia es la más importante para tu pareja?",
             "¿Cuál es el recuerdo favorito de tu pareja de ustedes dos?",
             "Cuando tu pareja está desbordada, ¿qué necesita: que le des espacio o que te quedes cerca?",
-            "¿Cuál es el momento del día juntos que tu pareja más disfruta?"
+            "¿Cuál es el momento del día juntos que tu pareja más disfruta?",
+            "¿Cuál es la manía tuya más absurda que tu pareja ya aprendió a tolerar?"
         ],
         // MI MUNDO (su presente)
         2: [
@@ -225,44 +226,49 @@ const preguntas = {
             "¿Qué momento de tu día esperás con más ganas?",
             "Además de mí, ¿con quién es con quien más te gusta hablar y por qué?",
             "¿Hay algo que te esté preocupando y todavía no me contaste?",
-            "¿Qué hiciste últimamente que te hizo sentir orgulloso/a de vos?",
+            "¿Qué hiciste últimamente que te dio orgullo de vos?",
             "¿Qué cosa chiquita te arruina el día aunque parezca una pavada?",
             "¿Qué actividad o hobby te gustaría retomar o empezar?",
-            "¿Qué te recarga las pilas cuando estás agotado/a?",
+            "¿Qué te recarga las pilas cuando no das más?",
             "¿Cuál es tu momento favorito de nuestra rutina juntos?",
             "¿Qué meta personal tenés este año que no tenga que ver conmigo?",
             "¿Qué te gustaría que te pregunte más seguido cuando llegás a casa?",
             "¿En qué parte de tu vida sentís que necesitás más apoyo ahora?",
-            "¿Qué serie, libro o tema te tiene atrapado/a últimamente?",
+            "¿Qué serie, libro o tema te atrapa últimamente?",
             "¿Qué cosa de tu trabajo o de tu estudio te gustaría que yo entienda mejor?",
-            "Cuando estás desbordado/a, ¿qué te ayuda a bajar: hablar, moverte, estar solo/a o que te abrace?",
+            "Cuando te desbordás, ¿qué te ayuda a bajar: hablar, moverte, un rato a solas o que te abrace?",
             "¿En qué área de tu vida sentís que necesitás más tiempo o espacio para vos?",
             "¿Qué ritual nuestro de todos los días no querés perder nunca?",
+            { tipo: "chequeo", tiempo: null, texto: "Del 1 al 10, ¿cuánto sentiste que te escuché esta semana? ¿Qué sumaría un punto?" },
+            { tipo: "chequeo", tiempo: null, texto: "Del 1 al 10, ¿cuánto tiempo de calidad sentís que tuvimos este mes? ¿Qué lo subiría un punto?" },
+            "¿Cuál es la manía mía más absurda que ya aprendiste a tolerar?",
+            "¿Qué defecto tenemos los dos que, en vez de enojarnos, nos da risa?",
+            { tipo: "comodin", tiempo: 60, texto: "Masaje inmediato: recibís un masaje de hombros o de pies y no tenés que responder nada." },
             { tipo: "accion", tiempo: 60, texto: "Contale a tu pareja algo que te pasó hoy. Durante 60 segundos solo escucha, sin opinar ni dar consejos. Al final te abraza." }
         ],
         // MI HISTORIA (sus raíces)
         3: [
-            "¿Cómo se demostraba el cariño en tu casa cuando eras chico/a?",
+            "¿Cómo se demostraba el cariño en tu casa durante tu infancia?",
             "¿Qué recuerdo de tu infancia te sigue haciendo sonreír?",
             "¿Qué momento de tu vida te cambió para siempre?",
             "¿Quién fue la persona que más te marcó mientras crecías y por qué?",
             "¿Cómo se manejaban las peleas en tu familia? ¿Qué repetís y qué no quisiste repetir?",
             "¿Qué aprendiste de tus relaciones anteriores que hoy aplicás con nosotros?",
-            "¿Hubo una etapa de tu vida en la que te sentiste muy solo/a? ¿Cómo saliste adelante?",
-            "¿Qué te decían de chico/a que todavía te pesa?",
-            "¿Cuál fue tu primera gran decepción?",
+            "¿Hubo una etapa de tu vida en la que sentiste mucha soledad? ¿Qué te ayudó a salir adelante?",
+            "¿Qué te decían en tu infancia que hoy te gustaría dejar atrás? Contá solo lo que tengas ganas.",
+            "¿Qué decepción de tu vida te terminó enseñando algo? Contá solo lo que tengas ganas.",
             "¿De qué logro tuyo casi nadie sabe?",
             "¿Qué tradición de tu familia te gustaría que tengamos nosotros?",
             "¿Cómo era tu vida justo antes de conocerme?",
             "¿Qué pensaste la primera vez que me viste? ¿Y cuándo supiste que te gustaba de verdad?",
-            "¿Qué parte de tu pasado te cuesta contar?",
+            "¿Hay algo de tu pasado que te gustaría contarme de a poco, cuando tengas ganas?",
             "¿Cómo se pedían perdón en tu casa? ¿Cómo te gusta que te lo pidan hoy?",
-            { tipo: "accion", tiempo: null, texto: "Buscá una foto tuya de chico/a y mostrásela a tu pareja. Contale qué estaba pasando en tu vida en ese momento." }
+            { tipo: "accion", tiempo: null, texto: "Buscá una foto de tu infancia y mostrásela a tu pareja. Contale qué estaba pasando en tu vida en ese momento." }
         ],
         // PONER A PRUEBA (¿qué harías?): dilemas para ver cómo funcionamos como equipo
         4: [
             "¿Qué harías si tuvieras una deuda que te da vergüenza contarme? ¿Qué necesitarías de mí para animarte a decírmelo?",
-            "¿Qué harías si tu mejor amigo/a y tu pareja no se soportan?",
+            "¿Qué harías si la persona que es tu mejor amistad y tu pareja no se soportan?",
             "¿Qué harías si tu pareja quiere mudarse lejos por su carrera y vos estás bien donde estás?",
             "¿Qué harías si tu familia critica todo el tiempo a tu pareja? ¿Cómo haríamos equipo frente a eso?",
             "¿Qué harías si tu ex te escribe para volver a hablar? ¿Qué límites con el pasado nos hacen sentir seguros a los dos?",
@@ -275,10 +281,10 @@ const preguntas = {
             "¿Qué harías si en una discusión los dos tienen razón y ninguno quiere ceder?",
             "¿Qué harías si discutimos fuerte justo antes de juntarnos con amigos? ¿Cómo lo pausamos y lo retomamos después?"
         ],
-        // CORAZÓN ABIERTO (necesidades, miedos, reparación y cómo se siente amado/a)
+        // CORAZÓN ABIERTO (necesidades, miedos, reparación y qué le hace sentir amor)
         5: [
-            "¿Cuándo te sentís más amado/a por mí? Dame un ejemplo concreto.",
-            "Cuando estás triste, ¿qué necesitás de mí: que te hable, que te abrace o que te deje tranquilo/a?",
+            "¿Cuándo sentís más mi amor? Dame un ejemplo concreto.",
+            "Cuando estás triste, ¿qué necesitás de mí: que te hable, que te abrace o que te dé espacio?",
             "¿Hay algo que hago que te lastima y nunca me dijiste?",
             "¿Qué es lo que más miedo te da perder de nuestra relación?",
             "¿En qué momento sentiste que yo no te entendía?",
@@ -289,29 +295,32 @@ const preguntas = {
             "¿Cómo te das cuenta de que estoy mal aunque no diga nada?",
             "¿Qué te gustaría que te agradezca más seguido?",
             "¿Hay algo de vos que todavía no te animaste a mostrarme?",
-            "¿Qué te da celos y cómo te gustaría que lo manejemos?",
+            "¿Qué te da celos o inseguridad, y qué acuerdos nos darían tranquilidad a los dos?",
             "¿Qué momento reciente te hizo pensar: «elegí bien»?",
             "Después de una pelea, ¿qué necesitás escuchar de mí para darla por cerrada?",
             "¿Cómo te das cuenta de que estás llegando a tu límite? ¿Qué señal tuya te gustaría que aprenda a leer?",
             "¿Hay algo que te lastimó y sentís que todavía no reparamos?",
+            { tipo: "chequeo", tiempo: null, texto: "Del 1 al 10, ¿qué tan en equipo te sentís conmigo hoy? ¿Qué necesitarías para sumar un punto?" },
+            { tipo: "comodin", tiempo: null, texto: "Pregunta libre: hacele a tu pareja la pregunta que quieras. Tiene que responder con total honestidad." },
             { tipo: "accion", tiempo: 60, texto: "Mírense a los ojos en silencio durante 60 segundos, sin hablar. Después cuenten qué sintieron." },
             { tipo: "accion", tiempo: null, texto: "Decile a tu pareja 3 cosas concretas que hizo esta semana y que te hicieron la vida más linda." },
             { tipo: "accion", tiempo: 60, texto: "Abrácense durante 60 segundos sin hablar, hasta que sientan que respiran al mismo ritmo." }
         ],
         // INTIMIDAD Y DESEO (comunicación sobre la intimidad, sin contenido explícito)
         6: [
-            "¿Qué gesto cotidiano mío te hace sentir deseado/a?",
+            "¿Qué gesto cotidiano mío te hace sentir deseo de mi parte?",
             "¿Cómo te gusta que te seduzcan fuera de la habitación?",
             "¿Qué tan fácil o difícil te resulta pedirme lo que necesitás en la intimidad?",
-            "¿Qué te hace sentir cómodo/a y seguro/a para disfrutar de la intimidad conmigo?",
+            "¿Qué te da comodidad y confianza para disfrutar de la intimidad conmigo?",
             "¿Qué cosas bajan tu deseo: el cansancio, el estrés, la rutina u otra cosa?",
             "¿Sentís que la frecuencia de nuestros encuentros está bien para vos? ¿Qué cambiarías?",
-            "¿Cómo te gustaría que nos digamos que no a algo sin que el otro se sienta rechazado/a?",
+            "¿Cómo te gustaría que nos digamos que no a algo sin que la otra persona sienta rechazo?",
             "¿Cuál es tu caricia favorita que no tiene nada de sexual?",
-            "¿Qué aprendiste de chico/a sobre el cuerpo, el placer o el amor que hoy te gustaría desaprender?",
+            "¿Qué aprendiste en tu infancia sobre el cuerpo, el placer o el amor que hoy te gustaría desaprender?",
             "¿Cuál fue el momento en que te sentiste más cerca mío sin que fuera sexual?",
             "¿Qué recuerdo nuestro de intimidad te hace sonreír?",
-            { tipo: "accion", tiempo: null, texto: "Mirando a tu pareja a los ojos, decile qué es lo que más te atrae de ella/él. Tiene que ser algo que nunca le dijiste." },
+            { tipo: "comodin", tiempo: null, texto: "Pase con beso: pasás esta carta sin responder, a cambio de un beso a tu pareja." },
+            { tipo: "accion", tiempo: null, texto: "Mirando a tu pareja a los ojos, decile qué es lo que más te atrae. Tiene que ser algo que nunca le dijiste." },
             { tipo: "accion", tiempo: 60, texto: "Tómense de las manos y, durante 60 segundos, recorran con los dedos las manos del otro, sin hablar." }
         ],
         // NUESTRO FUTURO (acuerdos, espacio propio y rituales)
@@ -333,7 +342,15 @@ const preguntas = {
             "¿Cómo cuidamos el tiempo de cada uno sin que el otro lo sienta como distancia?",
             "¿Cómo te gustaría que nos saludemos y nos despidamos cada día?",
             "¿Qué acuerdo nos ayudaría a pelear mejor: pausar, no gritar, no irnos a dormir enojados?",
+            "¿Qué acuerdos hacen que sientas que nuestro vínculo es un lugar seguro?",
+            { tipo: "comodin", tiempo: null, texto: "Antojo: elegí algo rico que tu pareja te prepare o te traiga esta semana." },
             { tipo: "accion", tiempo: null, texto: "Escriban cada uno en el celular un deseo para la pareja este año. Léanlos en voz alta al mismo tiempo." }
+        ],
+        // CIERRE (una al azar al terminar el mazo, para cerrar en positivo)
+        cierre: [
+            "Decile a tu pareja algo que respondió hoy que te hizo sentir amor, admiración o alivio.",
+            "Tómense de las manos, mírense durante 3 respiraciones profundas y dense un beso de 5 segundos.",
+            "¿Qué plan chiquito y simple nos gustaría hacer juntos esta misma semana?"
         ]
     }
 };

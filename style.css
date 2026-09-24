@@ -310,6 +310,13 @@ body.tema-parejas .pila-carta {
     border-style: dashed;
 }
 
+/* Comodines y cierre: frente dorado */
+.carta[data-tipo="comodin"] .carta-frente,
+.carta[data-tipo="cierre"] .carta-frente {
+    background: linear-gradient(160deg, #3a2f12, #16161d 70%);
+    border-style: dashed;
+}
+
 .carta-top {
     display: flex;
     flex-wrap: wrap;
@@ -417,6 +424,10 @@ body.tema-parejas .pila-carta {
     line-height: 1.5;
     padding-left: 18px;
     margin-bottom: 16px;
+}
+
+.mazo-reglas:empty {
+    display: none;
 }
 
 .mazo-campo,

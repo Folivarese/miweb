@@ -3,7 +3,7 @@
 // - Vida laboral / cotidiana / en pareja: cartas armadas a partir de `preguntas` (datos.js).
 // Usa mostrarPantalla, aplicarTema y volverAlMenu de codigo.js, y activarAlertaReto/desactivarAlertaReto de efecto.js.
 
-const TIPOS_CARTA = { pregunta: "💬 Pregunta", reto: "🔥 Reto", fantasia: "🎭 Fantasía", situacion: "🤔 Situación", adivina: "🎯 Adiviná", accion: "🤝 Acción" };
+const TIPOS_CARTA = { pregunta: "💬 Pregunta", reto: "🔥 Reto", fantasia: "🎭 Fantasía", situacion: "🤔 Situación", adivina: "🎯 Adiviná", accion: "🤝 Acción", chequeo: "📊 Chequeo", comodin: "🃏 Comodín" };
 
 // Configuración de cada mazo: tema de fondo, ícono del dorso y de dónde salen las cartas
 const MAZOS = {
@@ -12,14 +12,22 @@ const MAZOS = {
     parejas: {
         titulo: "VIDA EN PAREJA", tema: "parejas", icono: "💞",
         colores: ["#fdba74", "#fb923c", "#f97316", "#e879f9", "#f43f5e", "#fb7185", "#fda4af"],
+        // `noche`: cuántas cartas de ese nivel entran en el modo "Noche de cartas" (12 en total)
         niveles: [
-            { id: 1, nombre: "¿Cuánto me conocés?", tipo: "adivina",   descripcion: "Adiviná la respuesta de tu pareja: si acertás, sumás un punto; si no, te la cuenta." },
-            { id: 2, nombre: "Mi mundo",            tipo: "pregunta",  descripcion: "Su presente: rutina, estrés, espacio propio y metas." },
-            { id: 3, nombre: "Mi historia",         tipo: "pregunta",  descripcion: "Infancia, familia y los momentos que la/lo marcaron." },
-            { id: 4, nombre: "¿Qué harías?",        tipo: "situacion", descripcion: "Dilemas para poner a prueba cómo funcionan como equipo." },
-            { id: 5, nombre: "Corazón abierto",     tipo: "pregunta",  descripcion: "Necesidades, miedos, reparación y cómo se siente amado/a." },
-            { id: 6, nombre: "Intimidad y deseo",   tipo: "pregunta",  descripcion: "Deseo, seducción y cómo hablan de la intimidad, sin nada explícito." },
-            { id: 7, nombre: "Nuestro futuro",      tipo: "pregunta",  descripcion: "Planes, plata, familia, rituales y los sueños de los dos." }
+            { id: 1, nombre: "¿Cuánto me conocés?", tipo: "adivina",   noche: 2, descripcion: "Adiviná la respuesta de tu pareja: si acertás, sumás un punto; si no, te la cuenta." },
+            { id: 2, nombre: "Mi mundo",            tipo: "pregunta",  noche: 2, descripcion: "El presente: rutina, estrés, espacio propio y metas." },
+            { id: 3, nombre: "Mi historia",         tipo: "pregunta",  noche: 2, descripcion: "Infancia, familia y los momentos que marcaron a cada uno." },
+            { id: 4, nombre: "¿Qué harías?",        tipo: "situacion", noche: 1, descripcion: "Dilemas para poner a prueba cómo funcionan como equipo." },
+            { id: 5, nombre: "Corazón abierto",     tipo: "pregunta",  noche: 2, descripcion: "Necesidades, miedos, reparación y qué les hace sentir amor." },
+            { id: 6, nombre: "Intimidad y deseo",   tipo: "pregunta",  noche: 1, descripcion: "Deseo, seducción y cómo hablan de la intimidad, sin nada explícito." },
+            { id: 7, nombre: "Nuestro futuro",      tipo: "pregunta",  noche: 2, descripcion: "Planes, plata, familia, rituales y los sueños de los dos." }
+        ],
+        // Se muestran en el menú de niveles, antes de jugar
+        reglas: [
+            "Jueguen de a 10 a 15 cartas por vez. Si una pregunta abre una charla linda, guarden el mazo y quédense ahí.",
+            "Es un puente para conectar, no un lugar para pasar facturas.",
+            "Si están atravesando un conflicto, jueguen solo los niveles 1 y 2.",
+            "Si recién empiezan y una carta se siente apurada, pásenla sin culpa."
         ]
     },
     deseo:   { titulo: "MAZO DEL DESEO", tema: "deseo",   icono: "♥",  archivo: "cards.json", aviso18: true }
@@ -122,6 +130,14 @@ async function abrirMazo(clave) {
     document.getElementById("mazo-palabra-pausa").classList.toggle("oculto", !config.aviso18 || !mazoAvisoAceptado);
     mostrarPantalla("menu-mazo");
 
+    const reglas = document.getElementById("mazo-reglas-juego");
+    reglas.textContent = "";
+    (config.reglas || []).forEach(regla => {
+        const li = document.createElement("li");
+        li.textContent = regla;
+        reglas.appendChild(li);
+    });
+
     const contenedor = document.getElementById("mazo-niveles");
     contenedor.textContent = "Cargando cartas…";
 
@@ -136,6 +152,16 @@ async function abrirMazo(clave) {
         }
 
         contenedor.textContent = "";
+
+        const cartasNoche = datos.niveles.reduce((total, n) => total + (n.noche || 0), 0);
+        if (cartasNoche > 0) {
+            contenedor.appendChild(crearBotonNivel(
+                "Noche de cartas (recomendado)",
+                cartasNoche + " cartas de lo liviano a lo profundo, con una carta de cierre",
+                "#facc15",
+                () => iniciarMazo("noche")
+            ));
+        }
 
         datos.niveles.forEach(nivel => {
             const cantidad = datos.cartas.filter(c => c.nivel === nivel.id).length;
@@ -220,13 +246,18 @@ function mezclar(lista) {
 
 /**
  * Arma y mezcla el mazo.
- * @param {number|string} modo - id de nivel; "progresivo" (mezcla dentro de cada nivel y los ordena de 1 a 5)
- *                              o "sorpresa" (todas las cartas mezcladas).
+ * @param {number|string} modo - id de nivel; "progresivo" (mezcla dentro de cada nivel y los ordena del primero al último),
+ *                              "noche" (como progresivo, pero con `noche` cartas por nivel) o "sorpresa" (todas mezcladas).
  */
 function iniciarMazo(modo) {
     mazoModo = modo;
 
-    if (modo === "progresivo") {
+    if (modo === "noche") {
+        mazoCartas = mazoDatos.niveles.flatMap(n =>
+            mezclar(mazoDatos.cartas.filter(c => c.nivel === n.id)).slice(0, n.noche || 0)
+        );
+        document.getElementById("mazo-nivel-nombre").textContent = "Noche de cartas";
+    } else if (modo === "progresivo") {
         mazoCartas = mazoDatos.niveles.flatMap(n =>
             mezclar(mazoDatos.cartas.filter(c => c.nivel === n.id))
         );
@@ -318,7 +349,7 @@ function subirNivelMazo() {
     bloquearControlesCarta();
     document.getElementById("carta").classList.add("descartada");
 
-    if (mazoModo === "progresivo") {
+    if (mazoModo === "progresivo" || mazoModo === "noche") {
         const antes = mazoCartas.length;
         mazoCartas = mazoCartas.filter(c => c.nivel > nivelActual);
         mazoTotal -= antes - mazoCartas.length;
@@ -332,11 +363,16 @@ function mostrarFinDelMazo() {
     mazoCartaActual = null;
     const carta = document.getElementById("carta");
 
-    carta.style.setProperty("--nivel-color", "#f5f5f5");
-    carta.dataset.tipo = "";
-    document.getElementById("carta-nivel").textContent = "Fin del mazo";
-    document.getElementById("carta-tipo").textContent = "";
-    document.getElementById("carta-texto").textContent = "¡Jugaron todas las cartas! Pueden volver a mezclar o elegir otro nivel.";
+    // Si el mazo tiene cartas de cierre (datos.js → preguntas[clave].cierre), sale una al azar para cerrar en positivo
+    const cierres = (typeof preguntas !== "undefined" && preguntas[mazoClave] && preguntas[mazoClave].cierre) || [];
+    const cierre = cierres.length ? cierres[Math.floor(Math.random() * cierres.length)] : null;
+
+    carta.style.setProperty("--nivel-color", cierre ? "#facc15" : "#f5f5f5");
+    carta.dataset.tipo = cierre ? "cierre" : "";
+    document.getElementById("carta-nivel").textContent = cierre ? "Para cerrar" : "Fin del mazo";
+    document.getElementById("carta-tipo").textContent = cierre ? "💛 Cierre" : "";
+    document.getElementById("carta-texto").textContent = cierre ||
+        "¡Jugaron todas las cartas! Pueden volver a mezclar o elegir otro nivel.";
     document.getElementById("carta-timer").classList.add("oculto");
     document.getElementById("btn-subir-nivel").classList.add("oculto");
     carta.classList.add("volteada");
