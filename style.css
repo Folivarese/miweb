@@ -166,18 +166,6 @@ body.alerta-reto #pantalla-pregunta .card {
     animation: parpadeo-fondo-alerta 0.4s infinite alternate !important;
 }
 
-/* ... (rest of your style.css code) ... */
-
-/* ====== ESTILO PARA BOTONES DESHABILITADOS ====== */
-/* Esto hace que el botón se vea claramente inactivo */
-button:disabled {
-    cursor: default !important;
-    opacity: 0.4;
-    transform: none !important; /* Evita que se mueva con hover */
-    box-shadow: none !important; /* Evita que tenga sombra de activo */
-    background: #333 !important; /* Asegura un color base */
-}
-
 /* ====== ESTILO PARA BOTONES DESHABILITADOS (UX Mejorada) ====== */
 button:disabled {
     cursor: default !important; /* El puntero del ratón no cambia a mano */
@@ -187,3 +175,349 @@ button:disabled {
     background: #333 !important; /* Asegura un color base inactivo */
 }
 /* ====== FIN DE style.css ====== */
+
+/* ====== MAZO DEL DESEO ====== */
+
+body.tema-deseo {
+    background: radial-gradient(circle at top, #9d174d 0%, #3b0764 45%, #0a0014 100%);
+}
+
+.btn-deseo {
+    background: linear-gradient(135deg, #be123c, #7c3aed);
+    font-weight: 600;
+}
+
+.btn-deseo:hover {
+    background: linear-gradient(135deg, #e11d48, #8b5cf6);
+}
+
+.mazo-aviso {
+    font-size: 14px;
+    opacity: 0.75;
+    margin-bottom: 14px;
+    line-height: 1.4;
+}
+
+/* Botones de nivel */
+#mazo-niveles {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.btn-nivel-mazo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    width: 100%;
+    margin: 0;
+    border-radius: 12px;
+    text-align: left;
+    border-left: 6px solid var(--nivel-color, #f5f5f5);
+}
+
+.btn-nivel-mazo small {
+    font-size: 13px;
+    opacity: 0.7;
+}
+
+/* Pantalla de juego */
+.mazo-cabecera {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    opacity: 0.85;
+}
+
+.mazo-mesa {
+    position: relative;
+    width: 100%;
+    max-width: 320px;
+    aspect-ratio: 5 / 7;
+    margin: 0 auto 18px auto;
+}
+
+.pila-carta,
+.carta {
+    position: absolute;
+    inset: 0;
+    border-radius: 18px;
+}
+
+.pila-carta {
+    background: linear-gradient(135deg, #4c0519, #2e1065);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+}
+
+.carta {
+    z-index: 20;
+    perspective: 1200px;
+    cursor: pointer;
+    outline: none;
+    transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+.carta-interior {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.carta.volteada .carta-interior {
+    transform: rotateY(180deg);
+}
+
+.carta-cara {
+    position: absolute;
+    inset: 0;
+    border-radius: 18px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.carta-dorso {
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background:
+        repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 10px, transparent 10px 20px),
+        linear-gradient(135deg, #be123c, #6d28d9);
+    border: 2px solid rgba(255, 255, 255, 0.25);
+}
+
+.dorso-logo {
+    font-size: 72px;
+    line-height: 1;
+}
+
+.dorso-texto {
+    font-size: 14px;
+    opacity: 0.85;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.carta-frente {
+    transform: rotateY(180deg);
+    background: #16161d;
+    border: 2px solid var(--nivel-color, #f5f5f5);
+}
+
+.carta-top {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 10px;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--nivel-color, #f5f5f5);
+}
+
+#carta-texto {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* Timer circular */
+.carta-timer {
+    position: relative;
+    width: 96px;
+    height: 96px;
+    margin: 0 auto;
+}
+
+.carta-timer svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.timer-fondo,
+.timer-progreso {
+    fill: none;
+    stroke-width: 8;
+}
+
+.timer-fondo {
+    stroke: rgba(255, 255, 255, 0.12);
+}
+
+.timer-progreso {
+    stroke: var(--nivel-color, #f5f5f5);
+    stroke-linecap: round;
+    stroke-dasharray: 276.46; /* 2 * PI * 44 */
+    transition: stroke-dashoffset 1s linear;
+}
+
+#timer-numero {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+/* Animaciones de la carta */
+.carta.sin-transicion,
+.carta.sin-transicion .carta-interior {
+    transition: none !important;
+}
+
+.carta.descartada {
+    transform: translateX(120%) rotate(15deg);
+    opacity: 0;
+}
+
+.carta.entrando {
+    animation: carta-entrando 0.3s ease-out;
+}
+
+@keyframes carta-entrando {
+    from { transform: translate(8px, 8px) scale(0.97); }
+    to   { transform: none; }
+}
+
+/* Controles */
+.mazo-controles {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.btn-timer {
+    background: #f59e0b;
+    color: #111;
+    font-weight: 600;
+}
+
+.btn-timer:hover {
+    background: #fbbf24;
+}
+
+/* Aviso +18 */
+.mazo-reglas {
+    text-align: left;
+    font-size: 14px;
+    line-height: 1.5;
+    padding-left: 18px;
+    margin-bottom: 16px;
+}
+
+.mazo-campo,
+.mazo-check {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    text-align: left;
+    font-size: 15px;
+    margin-bottom: 14px;
+}
+
+.mazo-campo small {
+    font-size: 13px;
+    opacity: 0.7;
+}
+
+.mazo-campo input {
+    padding: 10px 12px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: #1c1c24;
+    color: #f5f5f5;
+}
+
+.mazo-check {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.mazo-check input {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    accent-color: #e11d48;
+}
+
+/* Cartas restantes por nivel */
+.mazo-restantes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    margin: -4px 0 12px 0;
+}
+
+.mazo-restantes:empty {
+    display: none;
+}
+
+.chip-nivel {
+    font-size: 12px;
+    padding: 3px 9px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid var(--nivel-color, #f5f5f5);
+}
+
+.mazo-palabra {
+    display: block;
+    margin: 10px auto 0 auto;
+    min-width: 0;
+    font-size: 14px;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: none;
+}
+
+/* Swipe: sin transición mientras se arrastra, y sin scroll horizontal del navegador */
+.carta {
+    touch-action: pan-y;
+}
+
+.carta.arrastrando {
+    transition: none;
+}
+
+/* Alerta al terminar el tiempo: la carta late en rojo */
+@keyframes alerta-carta {
+    from { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.9); }
+    to   { box-shadow: 0 0 0 10px rgba(255, 0, 0, 0.9), 0 0 40px rgba(255, 0, 0, 0.8); }
+}
+
+body.alerta-reto #pantalla-mazo .carta-frente {
+    animation: alerta-carta 0.4s infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .carta,
+    .carta-interior,
+    .timer-progreso {
+        transition: none;
+    }
+    .carta.entrando {
+        animation: none;
+    }
+}

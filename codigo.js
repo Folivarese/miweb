@@ -60,7 +60,7 @@ function mostrarPantalla(id) {
  * @param {string} cat - Categoría ('laboral', 'vida', 'parejas', 'default').
  */
 function aplicarTema(cat) {
-    document.body.classList.remove("tema-default", "tema-laboral", "tema-vida", "tema-parejas");
+    document.body.classList.remove("tema-default", "tema-laboral", "tema-vida", "tema-parejas", "tema-deseo");
 
     switch (cat) {
         case "laboral":
@@ -71,6 +71,9 @@ function aplicarTema(cat) {
             break;
         case "parejas":
             document.body.classList.add("tema-parejas");
+            break;
+        case "deseo":
+            document.body.classList.add("tema-deseo");
             break;
         default:
             document.body.classList.add("tema-default");

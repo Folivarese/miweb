@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juego de Cargas</title>
+    <title>Juego de Cartas</title>
     <link rel="stylesheet" href="style.css"> 
 </head>
 <body class="tema-default">
@@ -19,7 +19,8 @@
                 <button onclick="seleccionarCategoria('laboral')">VIDA LABORAL</button>
                 <button onclick="seleccionarCategoria('vida')">VIDA COTIDIANA</button>
                 <button onclick="seleccionarCategoria('parejas')">VIDA EN PAREJA</button>
-                
+                <button class="btn-deseo" onclick="abrirMazo()">MAZO DEL DESEO</button>
+
             </div>
         </div>
 
@@ -57,13 +58,95 @@
             </div>
         </div>
 
-    </div> 
+        <div id="aviso-mazo" class="pantalla">
+            <div class="card">
+                <h2>ANTES DE EMPEZAR</h2>
+                <ul id="mazo-reglas" class="mazo-reglas"></ul>
+
+                <label class="mazo-campo" for="palabra-pausa">
+                    Palabra de pausa
+                    <small>Si alguno la dice, el juego y el timer se frenan, sin preguntas.</small>
+                    <input id="palabra-pausa" type="text" maxlength="30" placeholder="Pausa" autocomplete="off">
+                </label>
+
+                <label class="mazo-check">
+                    <input id="acepto-mazo" type="checkbox" onchange="document.getElementById('btn-aceptar-mazo').disabled = !this.checked">
+                    Somos mayores de 18 años y acordamos nuestros límites.
+                </label>
+
+                <button id="btn-aceptar-mazo" class="btn-deseo" onclick="aceptarAvisoMazo()" disabled>Empezar</button>
+                <button class="volver" onclick="salirMazo()">Volver al menú</button>
+            </div>
+        </div>
+
+        <div id="menu-mazo" class="pantalla">
+            <div class="card">
+                <h2>MAZO DEL DESEO</h2>
+                <p class="mazo-aviso">Cualquiera puede pasar una carta sin dar explicaciones.</p>
+
+                <div id="mazo-niveles"></div>
+
+                <br>
+                <button class="volver" onclick="salirMazo()">Volver al menú</button>
+            </div>
+        </div>
+
+        <div id="pantalla-mazo" class="pantalla">
+            <div class="mazo-cabecera">
+                <span id="mazo-nivel-nombre"></span>
+                <span id="mazo-contador"></span>
+            </div>
+            <div id="mazo-restantes" class="mazo-restantes"></div>
+
+            <div class="mazo-mesa">
+                <div id="mazo-pila" class="mazo-pila"></div>
+
+                <div id="carta" class="carta" onclick="voltearCarta()" tabindex="0" aria-label="Carta del mazo">
+                    <div class="carta-interior">
+                        <div class="carta-cara carta-dorso">
+                            <span class="dorso-logo">♥</span>
+                            <span class="dorso-texto">Tocá para dar vuelta</span>
+                        </div>
+                        <div class="carta-cara carta-frente">
+                            <div class="carta-top">
+                                <span id="carta-nivel"></span>
+                                <span id="carta-tipo"></span>
+                            </div>
+                            <p id="carta-texto"></p>
+                            <div id="carta-timer" class="carta-timer oculto">
+                                <svg viewBox="0 0 100 100" aria-hidden="true">
+                                    <circle class="timer-fondo" cx="50" cy="50" r="44"></circle>
+                                    <circle id="timer-progreso" class="timer-progreso" cx="50" cy="50" r="44"></circle>
+                                </svg>
+                                <span id="timer-numero"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="mazo-controles-timer" class="mazo-controles oculto">
+                <button id="btn-timer" class="btn-timer" onclick="alternarTimerMazo()">Iniciar</button>
+                <button onclick="reiniciarTimerMazo()">Reiniciar</button>
+            </div>
+
+            <div class="mazo-controles">
+                <button id="btn-siguiente-carta" onclick="siguienteCarta()" disabled>Siguiente carta</button>
+                <button id="btn-subir-nivel" class="oculto" onclick="subirNivelMazo()">Subir nivel</button>
+                <button class="volver" onclick="volverMenuMazo()">Cambiar nivel</button>
+            </div>
+
+            <button id="mazo-palabra-pausa" class="mazo-palabra" onclick="pausarMazo()" title="Frena el timer"></button>
+        </div>
+
+    </div>
 
     <audio id="audio-alerta" src="campana.mp3" preload="auto"></audio>
 
     <script src="efecto.js"></script>
     <script src="datos.js"></script>
     <script src="codigo.js"></script>
+    <script src="mazo.js"></script>
 
 
 </body>
