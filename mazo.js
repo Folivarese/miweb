@@ -3,22 +3,34 @@
 // - Vida laboral / cotidiana / en pareja: cartas armadas a partir de `preguntas` (datos.js).
 // Usa mostrarPantalla, aplicarTema y volverAlMenu de codigo.js, y activarAlertaReto/desactivarAlertaReto de efecto.js.
 
-const TIPOS_CARTA = { pregunta: "💬 Pregunta", reto: "🔥 Reto", fantasia: "🎭 Fantasía", situacion: "🤔 Situación" };
+const TIPOS_CARTA = { pregunta: "💬 Pregunta", reto: "🔥 Reto", fantasia: "🎭 Fantasía", situacion: "🤔 Situación", adivina: "🎯 Adiviná" };
 
 // Configuración de cada mazo: tema de fondo, ícono del dorso y de dónde salen las cartas
 const MAZOS = {
     laboral: { titulo: "VIDA LABORAL",   tema: "laboral", icono: "💼", colores: ["#93c5fd", "#60a5fa", "#3b82f6", "#a78bfa"] },
     vida:    { titulo: "VIDA COTIDIANA", tema: "vida",    icono: "☕", colores: ["#86efac", "#4ade80", "#22c55e", "#facc15"] },
-    parejas: { titulo: "VIDA EN PAREJA", tema: "parejas", icono: "💞", colores: ["#fdba74", "#fb923c", "#f43f5e", "#e879f9"] },
+    parejas: {
+        titulo: "VIDA EN PAREJA", tema: "parejas", icono: "💞",
+        colores: ["#fdba74", "#fb923c", "#f97316", "#f43f5e", "#fda4af", "#e879f9"],
+        niveles: [
+            { id: 1, nombre: "¿Cuánto me conocés?", tipo: "adivina",   descripcion: "Adiviná la respuesta de tu pareja: si acertás, sumás un punto; si no, te la cuenta." },
+            { id: 2, nombre: "Mi mundo",            tipo: "pregunta",  descripcion: "Su presente: rutina, gustos, preocupaciones y metas." },
+            { id: 3, nombre: "Mi historia",         tipo: "pregunta",  descripcion: "Infancia, familia y los momentos que la/lo marcaron." },
+            { id: 4, nombre: "Corazón abierto",     tipo: "pregunta",  descripcion: "Necesidades, miedos y cómo se siente amado/a." },
+            { id: 5, nombre: "Nuestro futuro",      tipo: "pregunta",  descripcion: "Planes, plata, familia y los sueños de los dos." },
+            { id: 6, nombre: "¿Qué harías?",        tipo: "situacion", descripcion: "Dilemas de pareja para ver cómo piensa el otro." }
+        ]
+    },
     deseo:   { titulo: "MAZO DEL DESEO", tema: "deseo",   icono: "♥",  archivo: "cards.json", aviso18: true }
 };
 
-// Niveles de las categorías que usan datos.js (el 4 es "¿Qué harías?")
+// Niveles por defecto de las categorías que usan datos.js (el 4 es "¿Qué harías?").
+// Un mazo puede definir los suyos con `niveles` (ver MAZOS.parejas).
 const NIVELES_PREGUNTAS = [
-    { id: 1, nombre: "Nivel 1",      descripcion: "Preguntas livianas para arrancar." },
-    { id: 2, nombre: "Nivel 2",      descripcion: "Un poco más profundo." },
-    { id: 3, nombre: "Nivel 3",      descripcion: "Preguntas intensas, para ir a fondo." },
-    { id: 4, nombre: "¿Qué harías?", descripcion: "Situaciones para imaginar y debatir." }
+    { id: 1, nombre: "Nivel 1",      tipo: "pregunta",  descripcion: "Preguntas livianas para arrancar." },
+    { id: 2, nombre: "Nivel 2",      tipo: "pregunta",  descripcion: "Un poco más profundo." },
+    { id: 3, nombre: "Nivel 3",      tipo: "pregunta",  descripcion: "Preguntas intensas, para ir a fondo." },
+    { id: 4, nombre: "¿Qué harías?", tipo: "situacion", descripcion: "Situaciones para imaginar y debatir." }
 ];
 const CIRCUNFERENCIA_TIMER = 2 * Math.PI * 44; // radio del círculo SVG del timer
 const UMBRAL_SWIPE = 70;                         // px de arrastre horizontal para pasar la carta
@@ -53,7 +65,7 @@ async function cargarMazo(clave) {
         if (!resp.ok) throw new Error("HTTP " + resp.status);
         datos = await resp.json();
     } else {
-        datos = armarMazoDesdePreguntas(clave, config.colores);
+        datos = armarMazoDesdePreguntas(clave, config.niveles || NIVELES_PREGUNTAS, config.colores);
     }
 
     mazosCargados[clave] = datos;
@@ -63,13 +75,13 @@ async function cargarMazo(clave) {
 /**
  * Convierte preguntas[categoria] de datos.js al formato de cartas del mazo.
  */
-function armarMazoDesdePreguntas(categoria, colores) {
-    const niveles = NIVELES_PREGUNTAS.map((n, i) => ({ ...n, color: colores[i] }));
+function armarMazoDesdePreguntas(categoria, definicionNiveles, colores) {
+    const niveles = definicionNiveles.map((n, i) => ({ ...n, color: colores[i] }));
     const cartas = niveles.flatMap(n =>
         (preguntas[categoria][n.id] || []).map((texto, i) => ({
             id: categoria + "-" + n.id + "-" + (i + 1),
             nivel: n.id,
-            tipo: n.id === 4 ? "situacion" : "pregunta",
+            tipo: n.tipo,
             texto: texto,
             tiempo: null
         }))
