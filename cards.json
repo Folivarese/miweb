@@ -42,6 +42,8 @@
     { "id": "N2-10", "nivel": 2, "tipo": "reto", "texto": "Besos húmedos y profundos, con lengua, apretando el cuerpo contra el otro. Prohibido usar las manos.", "tiempo": 60 },
     { "id": "N2-11", "nivel": 2, "tipo": "pregunta", "texto": "¿Qué querés que te diga mientras lo hacemos? Decilo vos primero, con la voz que te gustaría escuchar.", "tiempo": null },
     { "id": "N2-12", "nivel": 2, "tipo": "reto", "texto": "Mirándose a los ojos, cada uno completa la frase \"Esta noche quiero que me…\". Sin suavizar nada.", "tiempo": 60 },
+    { "id": "N2-13", "nivel": 2, "tipo": "pregunta", "texto": "Del 1 al 10, ¿cuánto te gusta tocarte solo/a?", "tiempo": null },
+    { "id": "N2-14", "nivel": 2, "tipo": "pregunta", "texto": "¿Cuándo fue la última vez que te tocaste solo/a? ¿Y dónde?", "tiempo": null },
 
     { "id": "N3-01", "nivel": 3, "tipo": "reto", "texto": "Vendale los ojos y recorré todo su cuerpo desnudo solo con la lengua. Las manos, quietas.", "tiempo": 60 },
     { "id": "N3-02", "nivel": 3, "tipo": "reto", "texto": "Masaje con aceite en todo el cuerpo, rozando sus genitales sin tocarlos nunca de lleno. Hacele rogar.", "tiempo": 60 },
