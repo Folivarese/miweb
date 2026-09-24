@@ -293,35 +293,3 @@ const preguntas = {
         ]
     }
 };
-
-// ================= DATOS: RETOS EN PAREJA =================
-
-const retosParejas = [
-    "Vendá a tu pareja. Con tus labios, elegí una o varias partes de su cuerpo y hacé un recorrido suave durante",
-    "Vendá a tu pareja. Con tu lengua, elegí una o varias partes de su cuerpo y hacé un recorrido suave durante",
-    "Acercate a su oído y susurrale palabras que lo/la hagan sentir deseado/a… pero sin decir directamente qué querés. Solo insinuaciones, voz baja, respiración",
-    "Tu pareja vendada. Ahora guiá sus manos hacia lugares que vos desees durante",
-    "Trazá lentamente líneas sobre su piel con un solo dedo. Ella/él debe adivinar la forma (círculo, línea, corazón, etc.) durante",
-    "Escribí una palabra en su espalda usando solo tus dedos. Si la adivina, guiá a tu pareja para que bese la parte que vos quieras durante",
-    "En silencio total, solo usando gestos y toques suaves, indicá a tu pareja qué querés que haga. No se puede hablar. Si adivina lo debe interpretar. Consejo: no seas tan obvio/a. Regla: solo se permite por 2 segundos",
-    "Tu pareja pasa sus partes, boca o manos, por donde quiera. Vos no te podés mover ni decir nada",
-    "Tu pareja debe quedarse inmóvil durante el tiempo del reto, vos podés acercarte, rodearlo/a, tocar, provocar tensión… dejate llevar durante",
-    "Ganaste un premio: recibís un masaje donde vos quieras durante",
-    "Sexo oral espontáneo, elegí el lugar durante",
-    "Sexo carnal espontáneo, elegí el lugar durante",
-    "Hacé caricias intensas en espalda, cintura y cadera durante",
-    "Gemí muy cerca de su cuello y oreja durante",
-    "Usá tus nudillos para rozar zonas durante",
-    "Guiá a tu pareja a adoptar una postura y tener sexo con ropa durante",
-    "Bésalo intensamente. Tu pareja no puede reaccionar durante",
-    "Acuesta a tu pareja y usá solo tu boca para explorar su cuerpo durante",
-    "Acuesta a tu pareja y usá solo tus manos para explorar su cuerpo durante",
-    "Acuesta a tu pareja y que te de Sexo oral durante",
-    "Acuesta a tu pareja y dale Sexo carnal durante",
-    "Escribí con saliva una fantasía que te gustaría intentar en la piel de tu pareja. Ella/él debe intentar descifrarla solo con el tacto antes de que se seque.",
-    "Tu pareja elige una parte de tu cuerpo que sabe que te excita. Debe acercarse, hacer un gesto muy sensual (sin tocar) y alejarse, repitiendo esto varias veces durante el tiempo del reto.",
-    "Aplicá un cubito de hielo o algo tibio sobre la piel de tu pareja en una zona erógena, alternando las temperaturas para crear un contraste sensorial intenso durante",
-    "Contá un recuerdo íntimo compartido o una fantasía personal con el mayor detalle posible, sin tocar a tu pareja, usando solo el tono de voz y la expresión facial para excitarlo/a durante",
-    "Vendá los ojos de tu pareja. Usá tus dedos (con cuidado) para rozar suavemente zonas (cuello, muñecas, espalda) antes de llegar al punto que realmente deseas tocar. Mantené la intriga durante",
-
-];

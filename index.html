@@ -16,45 +16,11 @@
                 <h3>Una vez seleccionado juego ya no puedes detenerte, ¿Estás listo?</h3>
                 <h2></h2>
 
-                <button onclick="seleccionarCategoria('laboral')">VIDA LABORAL</button>
-                <button onclick="seleccionarCategoria('vida')">VIDA COTIDIANA</button>
-                <button onclick="seleccionarCategoria('parejas')">VIDA EN PAREJA</button>
-                <button class="btn-deseo" onclick="abrirMazo()">MAZO DEL DESEO</button>
+                <button onclick="abrirMazo('laboral')">VIDA LABORAL</button>
+                <button onclick="abrirMazo('vida')">VIDA COTIDIANA</button>
+                <button onclick="abrirMazo('parejas')">VIDA EN PAREJA</button>
+                <button class="btn-deseo" onclick="abrirMazo('deseo')">MAZO DEL DESEO</button>
 
-            </div>
-        </div>
-
-       <div id="menu-niveles" class="pantalla">
-            <div class="card">
-                <h2 id="titulo-categoria">Categoría</h2>
-
-                <button onclick="seleccionarNivel(1)">Nivel 1</button>
-                <button onclick="seleccionarNivel(2)">Nivel 2</button>
-                <button onclick="seleccionarNivel(3)">Nivel 3</button>
-                <button onclick="nivelAleatorio()">Aleatorio</button>                
-                <button onclick="seleccionarNivel(4)">¿Qué harías?</button>
-                
-
-                <br><br>
-                <button id="btn-retos" class="oculto" onclick="seleccionarRetoParejas()">Reto en pareja</button>
-
-                <br><br>
-                <button class="volver" onclick="volverAlMenu()">Volver al menú</button>
-            </div>
-        </div>
-
-        <div id="pantalla-pregunta" class="pantalla">
-            <div class="card">
-                <h2 id="titulo-pregunta">PREGUNTA</h2>
-
-                <p id="pregunta-texto"></p>
-                <p id="contador-tiempo"></p>
-
-                <button id="btn-comenzar-reto" class="oculto" onclick="iniciarReto()">Comenzar</button>
-
-                <br><br>
-                <button id="btn-otra-pregunta" onclick="mostrarOtraPregunta()">Otra pregunta</button>
-                <button id="btn-volver-niveles" class="volver" onclick="volverNiveles()">Volver a niveles</button>
             </div>
         </div>
 
@@ -81,7 +47,7 @@
 
         <div id="menu-mazo" class="pantalla">
             <div class="card">
-                <h2>MAZO DEL DESEO</h2>
+                <h2 id="titulo-mazo"></h2>
                 <p class="mazo-aviso">Cualquiera puede pasar una carta sin dar explicaciones.</p>
 
                 <div id="mazo-niveles"></div>
@@ -104,7 +70,7 @@
                 <div id="carta" class="carta" onclick="voltearCarta()" tabindex="0" aria-label="Carta del mazo">
                     <div class="carta-interior">
                         <div class="carta-cara carta-dorso">
-                            <span class="dorso-logo">♥</span>
+                            <span id="dorso-logo" class="dorso-logo"></span>
                             <span class="dorso-texto">Tocá para dar vuelta</span>
                         </div>
                         <div class="carta-cara carta-frente">
@@ -136,7 +102,7 @@
                 <button class="volver" onclick="volverMenuMazo()">Cambiar nivel</button>
             </div>
 
-            <button id="mazo-palabra-pausa" class="mazo-palabra" onclick="pausarMazo()" title="Frena el timer"></button>
+            <button id="mazo-palabra-pausa" class="mazo-palabra oculto" onclick="pausarMazo()" title="Frena el timer"></button>
         </div>
 
     </div>

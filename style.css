@@ -46,19 +46,6 @@ h2 {
     margin: 10px 0 18px 0;
 }
 
-/* Párrafos de pregunta y texto */
-#pregunta-texto {
-    font-size: 20px;
-    margin: 18px 0 10px 0;
-    line-height: 1.4;
-}
-
-#contador-tiempo {
-    font-size: 18px;
-    margin-top: 6px;
-    font-weight: 600;
-}
-
 /* Botones */
 button {
     background: #333;
@@ -92,17 +79,6 @@ button:active {
 
 .volver:hover {
     background: #cc4444;
-}
-
-/* Botón comenzar reto */
-#btn-comenzar-reto {
-    background: #f59e0b;
-    color: #111;
-    font-weight: 600;
-}
-
-#btn-comenzar-reto:hover {
-    background: #fbbf24;
 }
 
 /* Estados de pantalla */
@@ -147,23 +123,6 @@ body.tema-parejas {
         padding-top: 10px;
         padding-bottom: 10px;
     }
-}
-
-/* ====== EFECTO DE PARPADEO ROJO AL TERMINAR EL TIEMPO ====== */
-
-@keyframes parpadeo-fondo-alerta {
-    /* Base: color de fondo de la tarjeta */
-    0%   { background-color: #111; } 
-    /* Pico: Rojo fuerte para máxima visibilidad */
-    50%  { background-color: #ff0000; } 
-    /* Fin: vuelve al color base */
-    100% { background-color: #111; }
-}
-
-/* Aplicación de la animación con la máxima especificidad para sobrescribir todo */
-body.alerta-reto #pantalla-pregunta .card {
-    background-color: #111; /* Asegura el color base */
-    animation: parpadeo-fondo-alerta 0.4s infinite alternate !important;
 }
 
 /* ====== ESTILO PARA BOTONES DESHABILITADOS (UX Mejorada) ====== */
@@ -306,6 +265,37 @@ body.tema-deseo {
     opacity: 0.85;
     letter-spacing: 1px;
     text-transform: uppercase;
+}
+
+/* Dorso y pila según la categoría (el Mazo del Deseo usa el estilo base) */
+body.tema-laboral .carta-dorso {
+    background:
+        repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 10px, transparent 10px 20px),
+        linear-gradient(135deg, #2563eb, #1e1b4b);
+}
+
+body.tema-laboral .pila-carta {
+    background: linear-gradient(135deg, #1e3a8a, #0f172a);
+}
+
+body.tema-vida .carta-dorso {
+    background:
+        repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 10px, transparent 10px 20px),
+        linear-gradient(135deg, #16a34a, #064e3b);
+}
+
+body.tema-vida .pila-carta {
+    background: linear-gradient(135deg, #14532d, #022c22);
+}
+
+body.tema-parejas .carta-dorso {
+    background:
+        repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.04) 0 10px, transparent 10px 20px),
+        linear-gradient(135deg, #f97316, #9f1239);
+}
+
+body.tema-parejas .pila-carta {
+    background: linear-gradient(135deg, #9a3412, #4c0519);
 }
 
 .carta-frente {

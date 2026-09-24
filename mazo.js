@@ -1,12 +1,31 @@
-// Lógica del "Mazo del Deseo".
-// Las cartas se cargan desde cards.json (requiere abrir la app desde un servidor, no con doble clic).
+// Lógica del mazo de cartas, compartida por todas las categorías.
+// - Mazo del Deseo: cartas desde cards.json (requiere abrir la app desde un servidor, no con doble clic).
+// - Vida laboral / cotidiana / en pareja: cartas armadas a partir de `preguntas` (datos.js).
 // Usa mostrarPantalla, aplicarTema y volverAlMenu de codigo.js, y activarAlertaReto/desactivarAlertaReto de efecto.js.
 
-const TIPOS_CARTA = { pregunta: "💬 Pregunta", reto: "🔥 Reto", fantasia: "🎭 Fantasía" };
+const TIPOS_CARTA = { pregunta: "💬 Pregunta", reto: "🔥 Reto", fantasia: "🎭 Fantasía", situacion: "🤔 Situación" };
+
+// Configuración de cada mazo: tema de fondo, ícono del dorso y de dónde salen las cartas
+const MAZOS = {
+    laboral: { titulo: "VIDA LABORAL",   tema: "laboral", icono: "💼", colores: ["#93c5fd", "#60a5fa", "#3b82f6", "#a78bfa"] },
+    vida:    { titulo: "VIDA COTIDIANA", tema: "vida",    icono: "☕", colores: ["#86efac", "#4ade80", "#22c55e", "#facc15"] },
+    parejas: { titulo: "VIDA EN PAREJA", tema: "parejas", icono: "💞", colores: ["#fdba74", "#fb923c", "#f43f5e", "#e879f9"] },
+    deseo:   { titulo: "MAZO DEL DESEO", tema: "deseo",   icono: "♥",  archivo: "cards.json", aviso18: true }
+};
+
+// Niveles de las categorías que usan datos.js (el 4 es "¿Qué harías?")
+const NIVELES_PREGUNTAS = [
+    { id: 1, nombre: "Nivel 1",      descripcion: "Preguntas livianas para arrancar." },
+    { id: 2, nombre: "Nivel 2",      descripcion: "Un poco más profundo." },
+    { id: 3, nombre: "Nivel 3",      descripcion: "Preguntas intensas, para ir a fondo." },
+    { id: 4, nombre: "¿Qué harías?", descripcion: "Situaciones para imaginar y debatir." }
+];
 const CIRCUNFERENCIA_TIMER = 2 * Math.PI * 44; // radio del círculo SVG del timer
 const UMBRAL_SWIPE = 70;                         // px de arrastre horizontal para pasar la carta
 
-let mazoDatos = null;        // contenido de cards.json
+let mazoClave = null;        // mazo abierto: "laboral", "vida", "parejas" o "deseo"
+let mazoDatos = null;        // niveles y cartas del mazo abierto
+const mazosCargados = {};    // caché por clave, para no volver a armar/descargar
 let mazoAvisoAceptado = false; // aviso +18 aceptado en esta sesión (solo en memoria)
 let mazoPalabraPausa = "";
 let mazoModo = null;         // id de nivel (1-5), "progresivo" o "sorpresa"
@@ -24,42 +43,77 @@ let mazoTiempoRestante = 0;
 
 // ================= CARGA DE DATOS =================
 
-async function cargarMazo() {
-    if (mazoDatos) return mazoDatos;
-    const resp = await fetch("cards.json");
-    if (!resp.ok) throw new Error("HTTP " + resp.status);
-    mazoDatos = await resp.json();
-    return mazoDatos;
+async function cargarMazo(clave) {
+    if (mazosCargados[clave]) return mazosCargados[clave];
+
+    const config = MAZOS[clave];
+    let datos;
+    if (config.archivo) {
+        const resp = await fetch(config.archivo);
+        if (!resp.ok) throw new Error("HTTP " + resp.status);
+        datos = await resp.json();
+    } else {
+        datos = armarMazoDesdePreguntas(clave, config.colores);
+    }
+
+    mazosCargados[clave] = datos;
+    return datos;
+}
+
+/**
+ * Convierte preguntas[categoria] de datos.js al formato de cartas del mazo.
+ */
+function armarMazoDesdePreguntas(categoria, colores) {
+    const niveles = NIVELES_PREGUNTAS.map((n, i) => ({ ...n, color: colores[i] }));
+    const cartas = niveles.flatMap(n =>
+        (preguntas[categoria][n.id] || []).map((texto, i) => ({
+            id: categoria + "-" + n.id + "-" + (i + 1),
+            nivel: n.id,
+            tipo: n.id === 4 ? "situacion" : "pregunta",
+            texto: texto,
+            tiempo: null
+        }))
+    );
+    return { niveles, cartas };
 }
 
 function buscarNivel(id) {
     return mazoDatos.niveles.find(n => n.id === id);
 }
 
-/** Intensidad del nivel en ají: 🌶️ a 🌶️🌶️🌶️🌶️🌶️ */
-function ajies(nivel) {
-    return "🌶️".repeat(nivel.picante || 0);
+/** Nombre del nivel con su intensidad en ají (🌶️ a 🌶️🌶️🌶️🌶️🌶️), si la tiene. */
+function nombreConAjies(nivel) {
+    return (nivel.nombre + " " + "🌶️".repeat(nivel.picante || 0)).trim();
 }
 
 // ================= MENÚ DEL MAZO =================
 
 /**
- * Entra al modo mazo: aplica el tema, carga las cartas y muestra el aviso +18
- * (la primera vez en la sesión) o directamente los niveles.
+ * Abre un mazo: aplica su tema, carga las cartas y muestra los niveles.
+ * El Mazo del Deseo pide antes el aviso +18 (una vez por sesión).
+ * @param {string} clave - "laboral", "vida", "parejas" o "deseo".
  */
-async function abrirMazo() {
-    detenerReto();
+async function abrirMazo(clave) {
+    const config = MAZOS[clave];
+    mazoClave = clave;
+    mazoDatos = null;
+
     desactivarAlertaReto();
-    aplicarTema("deseo");
+    aplicarTema(config.tema);
+    document.getElementById("titulo-mazo").textContent = config.titulo;
+    document.getElementById("dorso-logo").textContent = config.icono;
+    document.getElementById("mazo-palabra-pausa").classList.toggle("oculto", !config.aviso18 || !mazoAvisoAceptado);
     mostrarPantalla("menu-mazo");
 
     const contenedor = document.getElementById("mazo-niveles");
     contenedor.textContent = "Cargando cartas…";
 
     try {
-        const datos = await cargarMazo();
+        const datos = await cargarMazo(clave);
+        if (mazoClave !== clave) return; // cambiaron de mazo mientras cargaba
+        mazoDatos = datos;
 
-        if (!mazoAvisoAceptado) {
+        if (config.aviso18 && !mazoAvisoAceptado) {
             mostrarAvisoMazo(datos);
             return;
         }
@@ -69,7 +123,7 @@ async function abrirMazo() {
         datos.niveles.forEach(nivel => {
             const cantidad = datos.cartas.filter(c => c.nivel === nivel.id).length;
             contenedor.appendChild(crearBotonNivel(
-                nivel.id + ". " + nivel.nombre + " " + ajies(nivel),
+                nivel.id + ". " + nombreConAjies(nivel),
                 nivel.descripcion + " (" + cantidad + " cartas)",
                 nivel.color,
                 () => iniciarMazo(nivel.id)
@@ -78,7 +132,7 @@ async function abrirMazo() {
 
         contenedor.appendChild(crearBotonNivel(
             "Progresivo",
-            "Todas las cartas, del nivel 1 al 5 (" + datos.cartas.length + " cartas)",
+            "Todas las cartas, del nivel 1 al " + datos.niveles.length + " (" + datos.cartas.length + " cartas)",
             "#f5f5f5",
             () => iniciarMazo("progresivo")
         ));
@@ -91,9 +145,9 @@ async function abrirMazo() {
         ));
     } catch (e) {
         contenedor.textContent =
-            "No se pudo cargar cards.json. Si abriste index.html con doble clic, el navegador bloquea la lectura: " +
+            "No se pudieron cargar las cartas. Si abriste index.html con doble clic, el navegador bloquea la lectura: " +
             "abrí la app desde un servidor local (por ejemplo, Live Server en VS Code o \"npx serve\").";
-        console.error("Error cargando cards.json:", e);
+        console.error("Error cargando el mazo " + clave + ":", e);
     }
 }
 
@@ -118,7 +172,7 @@ function aceptarAvisoMazo() {
     mazoPalabraPausa = document.getElementById("palabra-pausa").value.trim() || "Pausa";
     document.getElementById("mazo-palabra-pausa").textContent =
         "⏸ Pausa: «" + mazoPalabraPausa + "»";
-    abrirMazo();
+    abrirMazo(mazoClave);
 }
 
 function crearBotonNivel(titulo, detalle, color, alHacerClic) {
@@ -205,7 +259,7 @@ function prepararSiguienteCarta() {
 
     const nivel = buscarNivel(mazoCartaActual.nivel);
     carta.style.setProperty("--nivel-color", nivel.color);
-    document.getElementById("carta-nivel").textContent = nivel.nombre + " " + ajies(nivel);
+    document.getElementById("carta-nivel").textContent = nombreConAjies(nivel);
     document.getElementById("carta-tipo").textContent = TIPOS_CARTA[mazoCartaActual.tipo] || mazoCartaActual.tipo;
     document.getElementById("carta-texto").textContent = mazoCartaActual.texto;
 
