@@ -43,11 +43,32 @@
 
     <div id="app">
 
-        <div id="menu-principal" class="pantalla activa">
+        <!-- Pre-pantalla: reglas de la casa (solo al abrir la app). Lógica en bienvenida.js -->
+        <div id="bienvenida" class="pantalla activa">
+            <header class="portada bienvenida-cabecera">
+                <img class="portada-logo" src="img/icono.svg" alt="" width="56" height="56">
+                <h1 class="portada-titulo">Entre Copas <span class="sin-corte">y Risas</span></h1>
+            </header>
+
+            <section class="reglas-casa" aria-labelledby="reglas-titulo">
+                <h2 id="reglas-titulo">Reglas del Juego</h2>
+                <ul>
+                    <li><button class="regla" aria-pressed="false"><span class="regla-icono" aria-hidden="true">🍷</span><span class="regla-texto">Copas llenas</span><span class="regla-check" aria-hidden="true"></span></button></li>
+                    <li><button class="regla" aria-pressed="false"><span class="regla-icono" aria-hidden="true">🛋️</span><span class="regla-texto">Todos sentados y cómodos</span><span class="regla-check" aria-hidden="true"></span></button></li>
+                    <li><button class="regla" aria-pressed="false"><span class="regla-icono" aria-hidden="true">🎶</span><span class="regla-texto">Música de fondo</span><span class="regla-check" aria-hidden="true"></span></button></li>
+                    <li><button class="regla" aria-pressed="false"><span class="regla-icono" aria-hidden="true">📵</span><span class="regla-texto">Celulares boca abajo <small class="sin-corte">(menos este)</small></span><span class="regla-check" aria-hidden="true"></span></button></li>
+                    <li><button class="regla" aria-pressed="false"><span class="regla-icono" aria-hidden="true">🙈</span><span class="regla-texto">0 vergüenza</span><span class="regla-check" aria-hidden="true"></span></button></li>
+                </ul>
+                <p class="reglas-ayuda">Tocá cada regla para tildarla</p>
+            </section>
+
+            <button id="btn-todo-listo" class="btn-todo-listo">¡Todo listo! <span class="brindis" aria-hidden="true">🥂</span></button>
+        </div>
+
+        <div id="menu-principal" class="pantalla">
             <header class="portada">
                 <img class="portada-logo" src="img/icono.svg" alt="" width="64" height="64">
                 <h1 class="portada-titulo">Entre Copas <span class="sin-corte">y Risas</span></h1>
-                <p class="portada-lema">El juego para brindar, reír y conocerse.</p>
             </header>
 
             <p class="portada-elegir">Elegí un mazo para empezar</p>
@@ -170,6 +191,7 @@
     <script src="datos.js"></script>
     <script src="codigo.js"></script>
     <script src="mazo.js"></script>
+    <script src="bienvenida.js"></script>
 
 
 </body>

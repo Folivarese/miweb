@@ -1035,3 +1035,258 @@ button:disabled {
 .sin-corte {
     white-space: nowrap;
 }
+
+/* ====== PRE-PANTALLA: REGLAS DEL JUEGO ====== */
+
+.bienvenida-cabecera {
+    margin: 0 0 30px;
+}
+
+.bienvenida-cabecera .portada-logo {
+    margin-bottom: 10px;
+}
+
+.bienvenida-cabecera .portada-titulo {
+    font-size: 38px;
+    margin: 0;
+}
+
+/* Tarjeta tipo "cartel" pegado con cinta */
+.reglas-casa {
+    position: relative;
+    background: var(--marca-superficie);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid var(--marca-borde);
+    border-radius: 22px;
+    padding: 26px 16px 14px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+}
+
+.reglas-casa::before {
+    content: "";
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    width: 96px;
+    height: 24px;
+    margin-left: -48px;
+    background: rgba(255, 210, 122, 0.55);
+    border-radius: 3px;
+    transform: rotate(3deg);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+.reglas-casa h2 {
+    margin: 0 0 14px;
+}
+
+.reglas-casa ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Las reglas se "reparten" una por una, después de la pantalla de carga */
+.reglas-casa li {
+    opacity: 0;
+    animation: regla-entra 0.45s ease-out forwards;
+}
+
+.reglas-casa li:nth-child(1) { animation-delay: 1.3s; }
+.reglas-casa li:nth-child(2) { animation-delay: 1.45s; }
+.reglas-casa li:nth-child(3) { animation-delay: 1.6s; }
+.reglas-casa li:nth-child(4) { animation-delay: 1.75s; }
+.reglas-casa li:nth-child(5) { animation-delay: 1.9s; }
+
+@keyframes regla-entra {
+    from { opacity: 0; transform: translateX(-28px) rotate(-5deg); }
+    to   { opacity: 1; transform: none; }
+}
+
+.regla {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 12px 14px;
+    border-radius: 14px;
+    text-align: left;
+    font-size: 17px;
+    font-weight: 500;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.regla-icono {
+    width: 28px;
+    flex-shrink: 0;
+    font-size: 22px;
+    line-height: 1;
+    text-align: center;
+}
+
+.regla-texto {
+    flex: 1;
+    min-width: 0;
+}
+
+.regla-texto small {
+    font-size: 13px;
+    color: var(--marca-texto-suave);
+}
+
+.regla-check {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.regla[aria-pressed="true"] {
+    background: rgba(255, 122, 89, 0.14);
+    border-color: rgba(255, 122, 89, 0.45);
+}
+
+.regla[aria-pressed="true"] .regla-check {
+    background: linear-gradient(135deg, var(--marca-acento), var(--marca-acento-2));
+    border-color: transparent;
+    animation: check-pop 0.3s ease-out;
+}
+
+.regla[aria-pressed="true"] .regla-check::after {
+    content: "";
+    position: absolute;
+    left: 7px;
+    top: 3px;
+    width: 6px;
+    height: 11px;
+    border: solid #fff;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+}
+
+@keyframes check-pop {
+    0%   { transform: scale(0.6); }
+    60%  { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.reglas-ayuda {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--marca-texto-suave);
+}
+
+/* Botón "¡Todo listo!" */
+.btn-todo-listo {
+    display: block;
+    width: 100%;
+    margin: 20px 0 0;
+    padding: 16px 20px;
+    font-size: 19px;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(135deg, var(--marca-acento), var(--marca-acento-2));
+    border-color: transparent;
+    box-shadow: 0 10px 28px rgba(194, 24, 91, 0.4);
+    opacity: 0;
+    animation: regla-entra 0.45s ease-out 2.1s forwards;
+}
+
+.btn-todo-listo:hover {
+    background: linear-gradient(135deg, var(--marca-acento), var(--marca-acento-2));
+    filter: brightness(1.08);
+    box-shadow: 0 12px 32px rgba(194, 24, 91, 0.5);
+}
+
+.brindis {
+    display: inline-block;
+}
+
+/* Con todas las reglas tildadas: las copas brindan y el botón late */
+.btn-todo-listo.brindando {
+    animation: regla-entra 0.45s ease-out 2.1s forwards, boton-late 1.2s ease-in-out infinite;
+}
+
+.btn-todo-listo.brindando .brindis {
+    animation: brindis 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes brindis {
+    from { transform: rotate(-18deg) scale(1.1); }
+    to   { transform: rotate(18deg) scale(1.3); }
+}
+
+@keyframes boton-late {
+    0%, 100% { box-shadow: 0 10px 28px rgba(194, 24, 91, 0.4); }
+    50%      { box-shadow: 0 10px 40px rgba(255, 122, 89, 0.75); }
+}
+
+/* Pantallas bajas (celulares chicos): todo un poco más compacto */
+@media (max-height: 700px) {
+    .bienvenida-cabecera { margin-bottom: 24px; }
+    .bienvenida-cabecera .portada-logo { width: 44px; height: 44px; margin-bottom: 6px; }
+    .bienvenida-cabecera .portada-titulo { font-size: 32px; }
+    .reglas-casa { padding-top: 22px; }
+    .reglas-casa h2 { font-size: 22px; margin-bottom: 10px; }
+    .reglas-casa ul { gap: 6px; }
+    .regla { padding: 9px 12px; font-size: 16px; }
+    .btn-todo-listo { margin-top: 16px; padding: 14px 20px; }
+}
+
+/* Celulares muy chicos (iPhone SE y similares) */
+@media (max-height: 600px) {
+    #app { padding-top: 12px; padding-bottom: 12px; }
+    .bienvenida-cabecera { margin-bottom: 20px; }
+    .bienvenida-cabecera .portada-logo { width: 36px; height: 36px; margin-bottom: 4px; }
+    .bienvenida-cabecera .portada-titulo { font-size: 28px; }
+    .reglas-casa { padding: 20px 12px 10px; }
+    .reglas-casa h2 { font-size: 20px; margin-bottom: 8px; }
+    .reglas-casa ul { gap: 5px; }
+    .regla { padding: 7px 10px; font-size: 15px; }
+    .reglas-ayuda { margin-top: 6px; }
+    .btn-todo-listo { margin-top: 12px; padding: 12px 20px; font-size: 17px; }
+}
+
+/* Celular acostado: nombre a la izquierda, reglas y botón a la derecha */
+@media (orientation: landscape) and (max-height: 520px) {
+    #bienvenida.activa {
+        display: grid;
+        grid-template-columns: 1fr 1.4fr;
+        column-gap: 28px;
+        align-items: center;
+    }
+    #bienvenida .bienvenida-cabecera {
+        grid-row: 1 / span 2;
+        margin: 0;
+    }
+    #bienvenida .reglas-casa,
+    #bienvenida .btn-todo-listo {
+        grid-column: 2;
+    }
+    .reglas-casa { padding: 18px 12px 10px; }
+    .reglas-casa h2 { font-size: 20px; margin-bottom: 8px; }
+    .reglas-casa ul { gap: 5px; }
+    .regla { padding: 6px 12px; font-size: 15px; }
+    .reglas-ayuda { display: none; }
+    .btn-todo-listo { margin-top: 12px; padding: 11px 20px; font-size: 17px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reglas-casa li,
+    .btn-todo-listo,
+    .btn-todo-listo.brindando,
+    .btn-todo-listo.brindando .brindis,
+    .regla[aria-pressed="true"] .regla-check {
+        animation: none;
+        opacity: 1;
+    }
+}
