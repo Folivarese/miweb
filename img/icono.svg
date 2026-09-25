@@ -12,9 +12,22 @@
       <stop offset="0" stop-color="#8b5cf6"/>
       <stop offset="1" stop-color="#4c1d95"/>
     </linearGradient>
+    <g id="copa">
+      <path d="M-44,-210 L44,-210 C44,-150 28,-114 0,-110 C-28,-114 -44,-150 -44,-210 Z" fill="#fff5e6"/>
+      <path d="M-38,-168 L38,-168 C35,-136 21,-120 0,-117 C-21,-120 -35,-136 -38,-168 Z" fill="#9f1239"/>
+      <rect x="-8" y="-114" width="16" height="96" fill="#fff5e6"/>
+      <rect x="-40" y="-26" width="80" height="18" rx="9" fill="#fff5e6"/>
+    </g>
   </defs>
   <rect width="512" height="512" rx="112" fill="url(#fondo)"/>
-  <rect x="118" y="120" width="176" height="252" rx="26" fill="url(#carta2)" transform="rotate(-12 206 246)"/>
-  <rect x="218" y="140" width="176" height="252" rx="26" fill="url(#carta1)" transform="rotate(10 306 266)"/>
-  <path d="M306 232c-14-26-54-22-54 8 0 24 30 42 54 62 24-20 54-38 54-62 0-30-40-34-54-8z" fill="#fff5e6"/>
+  <rect x="128" y="78" width="150" height="214" rx="22" fill="url(#carta2)" transform="rotate(-12 203 185)"/>
+  <rect x="234" y="78" width="150" height="214" rx="22" fill="url(#carta1)" transform="rotate(12 309 185)"/>
+  <g stroke="#0d0a14" stroke-width="14" stroke-linejoin="round">
+    <use href="#copa" transform="translate(163 452) rotate(14)"/>
+    <use href="#copa" transform="translate(349 452) rotate(-14)"/>
+  </g>
+  <use href="#copa" transform="translate(163 452) rotate(14)"/>
+  <use href="#copa" transform="translate(349 452) rotate(-14)"/>
+  <path d="M256 150 l11 27 27 11 -27 11 -11 27 -11 -27 -27 -11 27 -11 z" fill="#ffd27a"/>
+  <path d="M206 196 l-18 -16 M306 196 l18 -16" stroke="#ffd27a" stroke-width="9" stroke-linecap="round"/>
 </svg>
