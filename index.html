@@ -2,31 +2,88 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juego de Cartas</title>
-    <link rel="stylesheet" href="style.css"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <!-- Marca: para cambiar el nombre, editar "Entre Cartas" en este bloque, en la portada y en manifest.webmanifest -->
+    <title>Entre Cartas · Preguntas que abren conversaciones</title>
+    <meta name="description" content="Juego de cartas con preguntas y retos para equipos de trabajo, amigos, familia y parejas. Cuatro mazos, de lo liviano a lo profundo.">
+    <meta name="theme-color" content="#0d0a14">
+
+    <!-- Vista previa al compartir el link (WhatsApp, redes) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Entre Cartas">
+    <meta property="og:description" content="Preguntas que abren conversaciones. Cuatro mazos para jugar en equipo, en familia o en pareja.">
+    <meta property="og:image" content="https://folivarese.github.io/miweb/img/og-image.png">
+    <meta property="og:url" content="https://folivarese.github.io/miweb/">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Íconos e instalación en el celular -->
+    <link rel="icon" type="image/svg+xml" href="img/icono.svg">
+    <link rel="icon" type="image/png" sizes="192x192" href="img/icono-192.png">
+    <link rel="apple-touch-icon" href="img/icono-180.png">
+    <link rel="manifest" href="manifest.webmanifest">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Entre Cartas">
+
+    <!-- Tipografías -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Outfit:wght@400;500;600;700&display=swap">
+
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="tema-default">
+
+    <!-- Pantalla de carga: se desvanece sola (solo CSS) -->
+    <div class="splash" aria-hidden="true">
+        <img src="img/icono.svg" alt="" width="84" height="84">
+        <span>Entre Cartas</span>
+    </div>
 
     <div id="app">
 
         <div id="menu-principal" class="pantalla activa">
-            <div class="card">
-                <h1>JUEGO DE CARTAS/RETOS</h1>
-                <h3>Una vez seleccionado juego ya no puedes detenerte, ¿Estás listo?</h3>
-                <h2></h2>
+            <header class="portada">
+                <img class="portada-logo" src="img/icono.svg" alt="" width="64" height="64">
+                <h1 class="portada-titulo">Entre Cartas</h1>
+                <p class="portada-lema">Preguntas que abren conversaciones.</p>
+            </header>
 
-                <button onclick="abrirMazo('laboral')">VIDA LABORAL</button>
-                <button onclick="abrirMazo('vida')">VIDA COTIDIANA</button>
-                <button onclick="abrirMazo('parejas')">VIDA EN PAREJA</button>
-                <button class="btn-deseo" onclick="abrirMazo('deseo')">MAZO DEL DESEO</button>
+            <p class="portada-elegir">Elegí un mazo para empezar</p>
 
+            <div class="mazos-grilla">
+                <button class="mazo-tile tile-laboral" onclick="abrirMazo('laboral')">
+                    <span class="tile-icono" aria-hidden="true">💼</span>
+                    <span class="tile-nombre">Vida laboral</span>
+                    <span class="tile-desc">Para romper el hielo en el equipo y conocerse más allá del trabajo.</span>
+                </button>
+                <button class="mazo-tile tile-vida" onclick="abrirMazo('vida')">
+                    <span class="tile-icono" aria-hidden="true">☕</span>
+                    <span class="tile-nombre">Vida cotidiana</span>
+                    <span class="tile-desc">Charlas con amigos y familia, de lo liviano a lo profundo.</span>
+                </button>
+                <button class="mazo-tile tile-parejas" onclick="abrirMazo('parejas')">
+                    <span class="tile-icono" aria-hidden="true">💞</span>
+                    <span class="tile-nombre">Vida en pareja</span>
+                    <span class="tile-desc">Para conocerse a fondo y cuidar el vínculo.</span>
+                </button>
+                <button class="mazo-tile tile-deseo" onclick="abrirMazo('deseo')">
+                    <span class="tile-badge">+18</span>
+                    <span class="tile-icono" aria-hidden="true">♥</span>
+                    <span class="tile-nombre">Mazo del Deseo</span>
+                    <span class="tile-desc">Un juego íntimo para parejas adultas.</span>
+                </button>
             </div>
+
+            <footer class="pie">
+                © 2026 Entre Cartas · Todos los derechos reservados
+            </footer>
         </div>
 
         <div id="aviso-mazo" class="pantalla">
             <div class="card">
-                <h2>ANTES DE EMPEZAR</h2>
+                <h2>Antes de empezar</h2>
                 <ul id="mazo-reglas" class="mazo-reglas"></ul>
 
                 <label class="mazo-campo" for="palabra-pausa">
@@ -53,7 +110,6 @@
 
                 <div id="mazo-niveles"></div>
 
-                <br>
                 <button class="volver" onclick="salirMazo()">Volver al menú</button>
             </div>
         </div>

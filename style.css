@@ -528,3 +528,505 @@ body.alerta-reto #pantalla-mazo .carta-frente {
         animation: none;
     }
 }
+
+
+/* =====================================================================
+   CAPA VISUAL "ENTRE CARTAS"
+   Solo presentación: tipografía, colores, portada y botones.
+   No cambia la lógica del juego. Para volver al diseño anterior,
+   borrar desde acá hasta el final del archivo.
+   ===================================================================== */
+
+:root {
+    --marca-fondo: #0d0a14;
+    --marca-superficie: rgba(22, 17, 34, 0.78);
+    --marca-borde: rgba(255, 255, 255, 0.09);
+    --marca-texto: #fff5e6;
+    --marca-texto-suave: rgba(255, 245, 230, 0.68);
+    --marca-acento: #ff7a59;
+    --marca-acento-2: #c2185b;
+    --fuente-titulo: "Fraunces", Georgia, "Times New Roman", serif;
+    --fuente-texto: "Outfit", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+}
+
+body {
+    font-family: var(--fuente-texto);
+    color: var(--marca-texto);
+    background-color: var(--marca-fondo);
+    background-attachment: fixed;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+body.tema-default {
+    background:
+        radial-gradient(ellipse at 15% 0%, rgba(139, 92, 246, 0.28) 0%, transparent 55%),
+        radial-gradient(ellipse at 90% 100%, rgba(255, 122, 89, 0.18) 0%, transparent 50%),
+        var(--marca-fondo);
+    background-attachment: fixed;
+}
+
+#app {
+    padding: 20px 16px 28px;
+}
+
+/* Tarjeta central: vidrio oscuro */
+.card {
+    background: var(--marca-superficie);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid var(--marca-borde);
+    border-radius: 22px;
+    padding: 28px 22px 24px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+}
+
+h1, h2 {
+    font-family: var(--fuente-titulo);
+    font-weight: 700;
+    letter-spacing: 0;
+    text-transform: none;
+}
+
+h2 {
+    font-size: 26px;
+    text-align: center;
+    margin: 0 0 16px;
+}
+
+/* Botones */
+button {
+    font-family: var(--fuente-texto);
+    font-weight: 600;
+    font-size: 15px;
+    letter-spacing: 0.2px;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--marca-texto);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: none;
+    padding: 13px 20px;
+}
+
+button:hover {
+    background: rgba(255, 255, 255, 0.14);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+}
+
+button:focus-visible,
+.carta:focus-visible {
+    outline: 2px solid var(--marca-acento);
+    outline-offset: 3px;
+}
+
+#btn-siguiente-carta {
+    background: linear-gradient(135deg, var(--marca-acento), var(--marca-acento-2));
+    border-color: transparent;
+    color: #fff;
+}
+
+#btn-siguiente-carta:hover {
+    filter: brightness(1.08);
+}
+
+button:disabled {
+    background: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* "Volver" deja de ser rojo: es una acción secundaria, no un error */
+.volver {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: var(--marca-texto-suave);
+}
+
+.volver:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--marca-texto);
+}
+
+.card > .volver,
+.card > .btn-deseo {
+    display: block;
+    width: 100%;
+    margin: 12px 0 0;
+}
+
+.btn-deseo {
+    background: linear-gradient(135deg, #be123c, #7c3aed);
+    border-color: transparent;
+}
+
+/* Transición suave al cambiar de pantalla */
+.pantalla.activa {
+    animation: pantalla-aparece 0.35s ease-out;
+}
+
+@keyframes pantalla-aparece {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Pantalla de carga */
+.splash {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    background: var(--marca-fondo);
+    font-family: var(--fuente-titulo);
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--marca-texto);
+    pointer-events: none;
+    animation: splash-sale 0.5s ease 0.9s forwards;
+}
+
+.splash img {
+    animation: splash-logo 0.9s ease-out;
+}
+
+@keyframes splash-sale {
+    to { opacity: 0; visibility: hidden; }
+}
+
+@keyframes splash-logo {
+    from { transform: scale(0.85) rotate(-6deg); opacity: 0; }
+    to   { transform: none; opacity: 1; }
+}
+
+/* ====== PORTADA ====== */
+
+.portada {
+    text-align: center;
+    margin: 8px 0 26px;
+}
+
+.portada-logo {
+    display: block;
+    margin: 0 auto 14px;
+    filter: drop-shadow(0 10px 24px rgba(194, 24, 91, 0.35));
+}
+
+.portada-titulo {
+    font-size: 44px;
+    line-height: 1.05;
+    margin: 0 0 8px;
+}
+
+.portada-lema {
+    font-size: 17px;
+    color: var(--marca-texto-suave);
+}
+
+.portada-elegir {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--marca-texto-suave);
+    text-align: center;
+    margin-bottom: 12px;
+}
+
+.mazos-grilla {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.mazo-tile {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 6px;
+    min-width: 0;
+    margin: 0;
+    padding: 18px 16px 16px;
+    border-radius: 20px;
+    text-align: left;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.35);
+    overflow: hidden;
+}
+
+.mazo-tile::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.045) 0 10px, transparent 10px 20px);
+    pointer-events: none;
+}
+
+.mazo-tile:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 34px rgba(0, 0, 0, 0.45);
+}
+
+.tile-laboral { background: linear-gradient(145deg, #2563eb, #1e1b4b); }
+.tile-vida    { background: linear-gradient(145deg, #16a34a, #064e3b); }
+.tile-parejas { background: linear-gradient(145deg, #f97316, #9f1239); }
+.tile-deseo   { background: linear-gradient(145deg, #be123c, #4c1d95); }
+
+.tile-laboral:hover { background: linear-gradient(145deg, #3b82f6, #1e1b4b); }
+.tile-vida:hover    { background: linear-gradient(145deg, #22c55e, #064e3b); }
+.tile-parejas:hover { background: linear-gradient(145deg, #fb923c, #9f1239); }
+.tile-deseo:hover   { background: linear-gradient(145deg, #e11d48, #4c1d95); }
+
+.tile-icono {
+    font-size: 30px;
+    line-height: 1;
+    margin-bottom: 6px;
+}
+
+.tile-nombre {
+    font-family: var(--fuente-titulo);
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 1.15;
+}
+
+.tile-desc {
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.35;
+    opacity: 0.85;
+}
+
+.tile-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+.pie {
+    margin-top: 28px;
+    text-align: center;
+    font-size: 12px;
+    color: rgba(255, 245, 230, 0.45);
+}
+
+@media (max-width: 360px) {
+    .mazos-grilla { grid-template-columns: 1fr; }
+    .portada-titulo { font-size: 38px; }
+}
+
+/* ====== MENÚ DE NIVELES ====== */
+
+.mazo-aviso {
+    text-align: center;
+    color: var(--marca-texto-suave);
+    opacity: 1;
+}
+
+.mazo-reglas {
+    color: var(--marca-texto-suave);
+}
+
+.mazo-reglas li {
+    margin-bottom: 6px;
+}
+
+.btn-nivel-mazo {
+    padding: 14px 16px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-left: 5px solid var(--nivel-color, #f5f5f5);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.btn-nivel-mazo:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(3px);
+}
+
+.btn-nivel-mazo strong {
+    font-size: 16px;
+}
+
+.mazo-campo input {
+    font-family: var(--fuente-texto);
+    background: rgba(0, 0, 0, 0.3);
+}
+
+/* ====== MESA DE JUEGO ====== */
+
+.mazo-cabecera {
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    color: var(--marca-texto-suave);
+    opacity: 1;
+}
+
+.carta-frente {
+    background: linear-gradient(170deg, #1d1729, #120e1b);
+}
+
+#carta-texto {
+    font-family: var(--fuente-titulo);
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 1.35;
+    padding: 0 4px;
+}
+
+.dorso-texto {
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+
+.chip-nivel {
+    font-weight: 500;
+}
+
+/* La carta se adapta al alto de la pantalla, para que los botones siempre se vean sin scroll */
+.mazo-mesa {
+    container-type: inline-size;
+    width: clamp(220px, calc((100vh - 300px) * 5 / 7), 380px);
+    width: clamp(220px, calc((100dvh - 300px) * 5 / 7), 380px);
+    max-width: 100%;
+    margin-bottom: 14px;
+}
+
+/* Texto y timer escalan con el tamaño de la carta */
+#carta-texto {
+    font-size: clamp(16px, 7cqi, 24px);
+}
+
+.carta-top {
+    font-size: clamp(11px, 4cqi, 13px);
+}
+
+.carta-timer {
+    width: clamp(64px, 27cqi, 100px);
+    height: clamp(64px, 27cqi, 100px);
+}
+
+#timer-numero {
+    font-size: clamp(16px, 6.5cqi, 24px);
+}
+
+.dorso-logo {
+    font-size: clamp(52px, 22cqi, 80px);
+}
+
+/* Botones de la mesa: de a pares y compactos */
+#pantalla-mazo .mazo-controles {
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+#pantalla-mazo .mazo-controles button {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin: 0;
+    padding: 12px 14px;
+    white-space: nowrap;
+}
+
+#pantalla-mazo .mazo-palabra {
+    margin-top: 2px;
+    padding: 9px 16px;
+}
+
+.mazo-cabecera {
+    margin-bottom: 10px;
+}
+
+.mazo-restantes {
+    margin: -2px 0 10px;
+}
+
+/* Efectos de hover solo con mouse (en el celular quedaban "pegados" después del toque) */
+@media (hover: none) {
+    button:hover,
+    .mazo-tile:hover,
+    .btn-nivel-mazo:hover {
+        transform: none;
+    }
+}
+
+/* PC y tablet: portada un poco más amplia */
+@media (min-width: 900px) and (min-height: 700px) {
+    #app {
+        max-width: 560px;
+    }
+    .portada-titulo {
+        font-size: 52px;
+    }
+}
+
+/* Celular acostado: carta a la izquierda, controles a la derecha */
+@media (orientation: landscape) and (max-height: 520px) {
+    #app {
+        max-width: 860px;
+        padding: 12px 16px;
+    }
+
+    #pantalla-mazo.activa {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-template-rows: auto auto auto auto 1fr;
+        column-gap: 24px;
+        align-items: start;
+    }
+
+    #pantalla-mazo .mazo-mesa {
+        grid-column: 1;
+        grid-row: 1 / span 5;
+        width: clamp(180px, calc((100vh - 36px) * 5 / 7), 320px);
+        width: clamp(180px, calc((100dvh - 36px) * 5 / 7), 320px);
+        margin: 0;
+    }
+
+    #pantalla-mazo > :not(.mazo-mesa) {
+        grid-column: 2;
+    }
+
+    .mazo-restantes {
+        justify-content: flex-start;
+    }
+
+    /* Menús y portada: dos columnas para aprovechar el ancho */
+    .mazos-grilla {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    .portada {
+        margin: 0 0 14px;
+    }
+    .portada-logo {
+        width: 44px;
+        height: 44px;
+        margin-bottom: 6px;
+    }
+    .portada-titulo {
+        font-size: 32px;
+    }
+    #mazo-niveles {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pantalla.activa,
+    .splash img {
+        animation: none;
+    }
+    .splash {
+        animation-delay: 0.2s;
+    }
+}
