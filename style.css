@@ -531,7 +531,7 @@ body.alerta-reto #pantalla-mazo .carta-frente {
 
 
 /* =====================================================================
-   CAPA VISUAL "ENTRE CARTAS"
+   CAPA VISUAL "ENTRE COPAS Y RISAS"
    Solo presentación: tipografía, colores, portada y botones.
    No cambia la lógica del juego. Para volver al diseño anterior,
    borrar desde acá hasta el final del archivo.
@@ -1029,4 +1029,9 @@ button:disabled {
     .splash {
         animation-delay: 0.2s;
     }
+}
+
+/* El nombre corta como "Entre Copas / y Risas" y no "Entre Copas y / Risas" */
+.sin-corte {
+    white-space: nowrap;
 }
