@@ -5,15 +5,18 @@
 (function () {
     const reglas = document.querySelectorAll("#bienvenida .regla");
     const btnListo = document.getElementById("btn-todo-listo");
+    const ayuda = document.querySelector("#bienvenida .reglas-ayuda");
 
     reglas.forEach(regla => {
         regla.addEventListener("click", () => {
             const tildada = regla.getAttribute("aria-pressed") !== "true";
             regla.setAttribute("aria-pressed", String(tildada));
 
-            const todas = [...reglas].every(r => r.getAttribute("aria-pressed") === "true");
+            const tildadas = [...reglas].filter(r => r.getAttribute("aria-pressed") === "true").length;
+            const todas = tildadas === reglas.length;
             btnListo.classList.toggle("brindando", todas);
             btnListo.disabled = !todas;
+            ayuda.textContent = todas ? "¡Todo en orden! A brindar." : tildadas + " de " + reglas.length + " reglas tildadas";
         });
     });
 

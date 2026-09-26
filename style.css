@@ -1051,7 +1051,7 @@ button:disabled {
     margin: 0;
 }
 
-/* Tarjeta tipo "cartel" pegado con cinta */
+/* Tarjeta de las reglas */
 .reglas-casa {
     position: relative;
     background: var(--marca-superficie);
@@ -1061,20 +1061,6 @@ button:disabled {
     border-radius: 22px;
     padding: 26px 16px 14px;
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
-}
-
-.reglas-casa::before {
-    content: "";
-    position: absolute;
-    top: -12px;
-    left: 50%;
-    width: 96px;
-    height: 24px;
-    margin-left: -48px;
-    background: rgba(255, 210, 122, 0.55);
-    border-radius: 3px;
-    transform: rotate(3deg);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
 }
 
 .reglas-casa h2 {
@@ -1295,4 +1281,168 @@ button:disabled {
         animation: none;
         opacity: 1;
     }
+}
+
+/* =====================================================================
+   AJUSTES DE TERMINACIÓN (26/09/2026)
+   Menú de niveles agrupado, barra de progreso en la mesa y casilla +18.
+   ===================================================================== */
+
+/* Menú de niveles: grupos con título y cantidad de cartas a la derecha */
+.grupo-niveles {
+    margin: 14px 2px 2px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: var(--marca-texto-suave);
+}
+
+.grupo-niveles:first-child {
+    margin-top: 4px;
+}
+
+.btn-nivel-mazo {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+}
+
+.nivel-textos {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    flex: 1;
+    min-width: 0;
+}
+
+.btn-nivel-mazo small {
+    font-weight: 400;
+    line-height: 1.35;
+    color: var(--marca-texto-suave);
+    opacity: 1;
+}
+
+.nivel-cantidad {
+    flex-shrink: 0;
+    min-width: 34px;
+    padding: 4px 8px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    color: var(--marca-texto);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.btn-nivel-mazo.destacado {
+    padding-top: 16px;
+    padding-bottom: 16px;
+    background: linear-gradient(135deg, rgba(250, 204, 21, 0.14), rgba(255, 122, 89, 0.08));
+    border-color: rgba(250, 204, 21, 0.35);
+    border-left-color: var(--nivel-color);
+}
+
+.btn-nivel-mazo.destacado:hover {
+    background: linear-gradient(135deg, rgba(250, 204, 21, 0.22), rgba(255, 122, 89, 0.12));
+}
+
+/* Reglas del mazo: recuadro sutil en vez de viñetas sueltas */
+#menu-mazo .mazo-reglas {
+    padding: 12px 14px 12px 30px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+#menu-mazo .mazo-reglas li:last-child {
+    margin-bottom: 0;
+}
+
+/* Mesa: barra de progreso en tramos (uno por nivel) en lugar de los chips */
+.mazo-restantes {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 3px;
+    height: 6px;
+    margin: 0 0 14px;
+}
+
+.mazo-restantes:empty {
+    display: none;
+}
+
+.tramo-nivel {
+    position: relative;
+    flex-basis: 0;
+    min-width: 6px;
+    border-radius: 999px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.tramo-nivel > span {
+    display: block;
+    height: 100%;
+    background: var(--nivel-color);
+    border-radius: inherit;
+    transition: width 0.35s ease;
+}
+
+@media (orientation: landscape) and (max-height: 520px) {
+    .mazo-restantes {
+        margin-bottom: 12px;
+    }
+}
+
+/* Casilla del aviso +18 con el estilo de la app (no la del navegador) */
+.mazo-check input {
+    appearance: none;
+    -webkit-appearance: none;
+    display: grid;
+    place-content: center;
+    width: 22px;
+    height: 22px;
+    margin: 0;
+    border-radius: 7px;
+    border: 1.5px solid rgba(255, 255, 255, 0.35);
+    background: rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+}
+
+.mazo-check input::after {
+    content: "";
+    width: 6px;
+    height: 11px;
+    margin-top: -2px;
+    border: solid #fff;
+    border-width: 0 2.5px 2.5px 0;
+    transform: rotate(45deg) scale(0);
+    transition: transform 0.15s;
+}
+
+.mazo-check input:checked {
+    background: linear-gradient(135deg, #be123c, #7c3aed);
+    border-color: transparent;
+}
+
+.mazo-check input:checked::after {
+    transform: rotate(45deg) scale(1);
+}
+
+.mazo-check input:focus-visible {
+    outline: 2px solid var(--marca-acento);
+    outline-offset: 2px;
+}
+
+.mazo-campo input:focus {
+    outline: none;
+    border-color: var(--marca-acento);
+}
+
+/* Celular acostado (niveles en dos columnas): los títulos de grupo ocupan todo el ancho */
+.grupo-niveles {
+    grid-column: 1 / -1;
 }

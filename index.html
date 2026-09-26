@@ -59,7 +59,7 @@
                     <li><button class="regla" aria-pressed="false"><span class="regla-icono" aria-hidden="true">📵</span><span class="regla-texto">Celulares boca abajo <small class="sin-corte">(menos este)</small></span><span class="regla-check" aria-hidden="true"></span></button></li>
                     <li><button class="regla" aria-pressed="false"><span class="regla-icono" aria-hidden="true">🙈</span><span class="regla-texto">0 vergüenza</span><span class="regla-check" aria-hidden="true"></span></button></li>
                 </ul>
-                <p class="reglas-ayuda">Tildá todas las reglas para empezar</p>
+                <p class="reglas-ayuda" aria-live="polite">Tildá las 5 reglas para empezar</p>
             </section>
 
             <button id="btn-todo-listo" class="btn-todo-listo" disabled>¡Todo listo! <span class="brindis" aria-hidden="true">🥂</span></button>
@@ -140,7 +140,7 @@
                 <span id="mazo-nivel-nombre"></span>
                 <span id="mazo-contador"></span>
             </div>
-            <div id="mazo-restantes" class="mazo-restantes"></div>
+            <div id="mazo-restantes" class="mazo-restantes" role="progressbar" aria-label="Cartas jugadas" aria-valuemin="0"></div>
 
             <div class="mazo-mesa">
                 <div id="mazo-pila" class="mazo-pila"></div>

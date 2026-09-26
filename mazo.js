@@ -52,6 +52,7 @@ let mazoPalabraPausa = "";
 let mazoModo = null;         // id de nivel (1-5), "progresivo" o "sorpresa"
 let mazoCartas = [];         // cartas que quedan por salir
 let mazoNivelesEnJuego = []; // ids de nivel que forman el mazo actual
+let mazoCartasPorNivel = {}; // cuántas cartas de cada nivel tenía el mazo al mezclar (barra de progreso)
 let mazoTotal = 0;
 let mazoCartaActual = null;
 let mazoVolteada = false;
@@ -155,35 +156,44 @@ async function abrirMazo(clave) {
 
         const cartasNoche = datos.niveles.reduce((total, n) => total + (n.noche || 0), 0);
         if (cartasNoche > 0) {
-            contenedor.appendChild(crearBotonNivel(
-                "Noche de cartas (recomendado)",
-                cartasNoche + " cartas de lo liviano a lo profundo, con una carta de cierre",
+            contenedor.appendChild(crearTituloGrupo("Recomendado"));
+            const btnNoche = crearBotonNivel(
+                "Noche de cartas",
+                "De lo liviano a lo profundo, con una carta de cierre.",
                 "#facc15",
+                cartasNoche,
                 () => iniciarMazo("noche")
-            ));
+            );
+            btnNoche.classList.add("destacado");
+            contenedor.appendChild(btnNoche);
         }
 
+        contenedor.appendChild(crearTituloGrupo("Por nivel"));
         datos.niveles.forEach(nivel => {
             const cantidad = datos.cartas.filter(c => c.nivel === nivel.id).length;
             contenedor.appendChild(crearBotonNivel(
-                nivel.id + ". " + nombreConAjies(nivel),
-                nivel.descripcion + " (" + cantidad + " cartas)",
+                (/^Nivel \d/.test(nivel.nombre) ? "" : nivel.id + ". ") + nombreConAjies(nivel), // evita "1. Nivel 1"
+                nivel.descripcion,
                 nivel.color,
+                cantidad,
                 () => iniciarMazo(nivel.id)
             ));
         });
 
+        contenedor.appendChild(crearTituloGrupo("Todo el mazo"));
         contenedor.appendChild(crearBotonNivel(
             "Progresivo",
-            "Todas las cartas, del nivel 1 al " + datos.niveles.length + " (" + datos.cartas.length + " cartas)",
+            "Todas las cartas, del nivel 1 al " + datos.niveles.length + ".",
             "#f5f5f5",
+            datos.cartas.length,
             () => iniciarMazo("progresivo")
         ));
 
         contenedor.appendChild(crearBotonNivel(
             "Sorpresa",
-            "Todas las cartas mezcladas al azar (" + datos.cartas.length + " cartas)",
+            "Todas las cartas mezcladas al azar.",
             "#f5f5f5",
+            datos.cartas.length,
             () => iniciarMazo("sorpresa")
         ));
     } catch (e) {
@@ -218,17 +228,33 @@ function aceptarAvisoMazo() {
     abrirMazo(mazoClave);
 }
 
-function crearBotonNivel(titulo, detalle, color, alHacerClic) {
+function crearTituloGrupo(texto) {
+    const titulo = document.createElement("p");
+    titulo.className = "grupo-niveles";
+    titulo.textContent = texto;
+    return titulo;
+}
+
+function crearBotonNivel(titulo, detalle, color, cantidad, alHacerClic) {
     const btn = document.createElement("button");
     btn.className = "btn-nivel-mazo";
     btn.style.setProperty("--nivel-color", color);
 
+    const textos = document.createElement("span");
+    textos.className = "nivel-textos";
     const t = document.createElement("strong");
     t.textContent = titulo;
     const d = document.createElement("small");
     d.textContent = detalle;
+    textos.append(t, d);
 
-    btn.append(t, d);
+    const c = document.createElement("span");
+    c.className = "nivel-cantidad";
+    c.textContent = cantidad;
+    c.title = cantidad + " cartas";
+
+    btn.append(textos, c);
+    btn.setAttribute("aria-label", titulo + ". " + detalle + " " + cantidad + " cartas.");
     btn.addEventListener("click", alHacerClic);
     return btn;
 }
@@ -271,6 +297,8 @@ function iniciarMazo(modo) {
     }
 
     mazoNivelesEnJuego = [...new Set(mazoCartas.map(c => c.nivel))].sort((a, b) => a - b);
+    mazoCartasPorNivel = {};
+    mazoCartas.forEach(c => { mazoCartasPorNivel[c.nivel] = (mazoCartasPorNivel[c.nivel] || 0) + 1; });
     mazoTotal = mazoCartas.length;
     mostrarPantalla("pantalla-mazo");
     prepararSiguienteCarta();
@@ -389,20 +417,25 @@ function actualizarContadorMazo() {
     const jugadas = mazoTotal - mazoCartas.length;
     document.getElementById("mazo-contador").textContent = jugadas + " / " + mazoTotal;
 
-    // Cuántas quedan por nivel (solo en mazos de varios niveles)
-    const restantes = document.getElementById("mazo-restantes");
-    restantes.textContent = "";
-    if (mazoNivelesEnJuego.length > 1) {
-        mazoNivelesEnJuego.forEach(id => {
-            const nivel = buscarNivel(id);
-            const chip = document.createElement("span");
-            chip.className = "chip-nivel";
-            chip.style.setProperty("--nivel-color", nivel.color);
-            chip.title = nivel.nombre;
-            chip.textContent = nivel.nombre + ": " + mazoCartas.filter(c => c.nivel === id).length;
-            restantes.appendChild(chip);
-        });
-    }
+    // Barra de progreso: un tramo por nivel, del color del nivel, que se llena a medida que salen sus cartas
+    const barra = document.getElementById("mazo-restantes");
+    barra.textContent = "";
+    barra.setAttribute("aria-valuenow", jugadas);
+    barra.setAttribute("aria-valuemax", mazoTotal);
+    mazoNivelesEnJuego.forEach(id => {
+        const nivel = buscarNivel(id);
+        const inicial = mazoCartasPorNivel[id] || 0;
+        const quedan = mazoCartas.filter(c => c.nivel === id).length;
+        const tramo = document.createElement("span");
+        tramo.className = "tramo-nivel";
+        tramo.style.setProperty("--nivel-color", nivel.color);
+        tramo.style.flexGrow = inicial;
+        tramo.title = nivel.nombre + ": quedan " + quedan;
+        const lleno = document.createElement("span");
+        lleno.style.width = (inicial ? (inicial - quedan) / inicial * 100 : 0) + "%";
+        tramo.appendChild(lleno);
+        barra.appendChild(tramo);
+    });
 
     // Cartas de fondo visibles en la pila (máximo 4)
     const pila = document.getElementById("mazo-pila");
