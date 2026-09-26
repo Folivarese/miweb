@@ -1207,6 +1207,12 @@ button:disabled {
     box-shadow: 0 12px 32px rgba(194, 24, 91, 0.5);
 }
 
+/* Gris hasta que se tildan todas las reglas */
+.btn-todo-listo:disabled {
+    color: rgba(255, 255, 255, 0.45);
+    filter: none;
+}
+
 .brindis {
     display: inline-block;
 }

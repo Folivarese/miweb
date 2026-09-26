@@ -1,5 +1,5 @@
 // Pre-pantalla "Reglas del Juego": se muestra solo al abrir la app.
-// Tildar las reglas es opcional; si se tildan todas, el botón hace el "brindis".
+// Hay que tildar todas las reglas: recién ahí se habilita el botón y hace el "brindis".
 // "¡Todo listo!" abre el menú principal (mostrarPantalla de codigo.js). No toca la lógica del mazo.
 
 (function () {
@@ -13,10 +13,12 @@
 
             const todas = [...reglas].every(r => r.getAttribute("aria-pressed") === "true");
             btnListo.classList.toggle("brindando", todas);
+            btnListo.disabled = !todas;
         });
     });
 
     btnListo.addEventListener("click", () => {
+        if (btnListo.disabled) return;
         mostrarPantalla("menu-principal");
         window.scrollTo(0, 0);
     });
